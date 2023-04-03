@@ -7,12 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessengerComponent } from './messenger/messenger.component';
+import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
+import { CommunicationComponent } from './messenger/communication/communication.component';
+import { UserListComponent } from './messenger/user-list/user-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessengerComponent
+    MessengerComponent,
+    CommunicationComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatGridListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

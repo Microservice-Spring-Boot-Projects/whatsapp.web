@@ -1,0 +1,14 @@
+:host {
+  background: gray;
+  height: 100%;
+  width: 100%;
+}
+
+.user-name {
+  color: black;
+  width: 75%;
+}
+
+.mobile-number {
+  color: darkgrey;
+}
