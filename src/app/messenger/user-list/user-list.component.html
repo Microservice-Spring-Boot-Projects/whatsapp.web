@@ -1,6 +1,6 @@
 <mat-list>
   <ng-container *ngFor="let participant of participants">
-    <mat-list-item>
+    <mat-list-item (click)="selectParticipant(participant)">
       <div matListItemTitle class="user-name">{{participant['participantName']}}</div>
       <div matListItemLine style="">{{participant['participantMobile']}}</div>
     </mat-list-item>

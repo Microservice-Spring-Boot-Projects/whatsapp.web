@@ -5,9 +5,13 @@
     </mat-toolbar>
   </mat-grid-tile>
   <mat-grid-tile colspan="1" rowspan="14" style="vertical-align: top;">
-    <user-list accountIdenfier="accountIdenfier"></user-list>
+    <user-list [accountIdentifier]="accountIdentifier"
+               [currentParticipantId]="currentParticipantId"
+               (participantSelected)="handleParticipantChange($event)"
+    >
+    </user-list>
   </mat-grid-tile>
   <mat-grid-tile colspan="3" rowspan="14">
-    <communication></communication>
+    <communication [accountIdentifier]="accountIdentifier" [currentParticipantId]="currentParticipantId"></communication>
   </mat-grid-tile>
 </mat-grid-list>

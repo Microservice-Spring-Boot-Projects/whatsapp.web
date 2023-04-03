@@ -25,5 +25,10 @@ export class MessageService {
     return this.http.get(environment.MESSAGE_URL + "/listParticipants?accountIdentifier=" + accountIdenifier, this.httpOptions);
   }
 
+  findMessages(accountIdenifier: string, participantId: number) {
+    return this.http.get(environment.MESSAGE_URL + "?accountIdentifier=" + accountIdenifier
+      + "&participantId=" + participantId
+      , this.httpOptions);
+  }
 
 }
