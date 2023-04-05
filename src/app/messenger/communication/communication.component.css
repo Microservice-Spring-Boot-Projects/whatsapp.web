@@ -3,3 +3,61 @@
   height: 100%;
   width: 100%;
 }
+
+#communicationContent{
+  height: 100%;
+  margin: 10px;
+}
+
+.communicationText {
+  margin: 5px;
+  padding: 2px;
+  width: 100%;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.received {
+  background-color: green;
+  border-radius: 10px;
+  color: white;
+  padding: 4px 10px;
+}
+
+.sent {
+  background-color: blue;
+  border-radius: 10px;
+  color: white;
+  padding: 4px 10px;
+}
+
+.message-full-width {
+  background-color: white!important;
+  border-radius: 15px;
+  color: black!important;
+  padding: 5px;
+  width: 100%;
+}
+
+.textField mat-divider {
+  margin-bottom: 10px;
+}
+
+.textField {
+  bottom: 20px;
+  position: absolute;
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.postButton {
+  cursor: pointer;
+  margin: 20px;
+  vertical-align: center;
+}

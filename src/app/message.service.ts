@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
+import {Message} from "./pojos";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class MessageService {
     return this.http.get(environment.MESSAGE_URL + "?accountIdentifier=" + accountIdenifier
       + "&participantId=" + participantId
       , this.httpOptions);
+  }
+
+  postMessage(message: Message): Observable<any> {
+    return this.http.post(environment.MESSAGE_URL, message, this.httpOptions);
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {MessageService} from "../../message.service";
-import {Message} from "../../pojos";
+import {Message, Participant} from "../../pojos";
 
 @Component({
   selector: 'communication',
@@ -13,13 +13,15 @@ export class CommunicationComponent implements OnInit {
   }
 
   @Input() accountIdentifier: string = "";
-  @Input() currentParticipantId: number = 0;
+  @Input() currentParticipant?: Participant;
+
+  messageText?: string;
 
   messages: Message[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.currentParticipantId != 0)
-      this.findMessages(this.accountIdentifier, this.currentParticipantId);
+    if (this.currentParticipant)
+      this.findMessages(this.accountIdentifier, this.currentParticipant.id as number);
   }
 
   ngOnInit(): void {
@@ -34,5 +36,17 @@ export class CommunicationComponent implements OnInit {
     });
   }
 
+  postMessage() {
+    let message = new Message();
+    message.text = this.messageText;
+    message.accountIdentifier = this.accountIdentifier;
+    message.participant = this.currentParticipant;
+    this.messageService.postMessage(message).subscribe({
+      next: (v) => {
+        this.messageText = "";
+        this.messages.unshift(v as Message);
+      }
+    });
+  }
 
 }

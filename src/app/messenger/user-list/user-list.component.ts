@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   }
 
   @Input() accountIdentifier: string = "";
-  @Input() currentParticipantId: number = 0;
+  @Input() currentParticipant?: Participant;
 
   participants: Participant[] = [];
 
@@ -30,11 +30,11 @@ export class UserListComponent implements OnInit {
   }
 
   @Output()
-  participantSelected: EventEmitter<number> = new EventEmitter;
+  participantSelected: EventEmitter<Participant> = new EventEmitter;
 
   selectParticipant(participant: Participant) {
-    this.currentParticipantId = participant.id as number;
-    this.participantSelected.emit(this.currentParticipantId);
+    this.currentParticipant = participant as Participant;
+    this.participantSelected.emit(this.currentParticipant);
   }
 
 

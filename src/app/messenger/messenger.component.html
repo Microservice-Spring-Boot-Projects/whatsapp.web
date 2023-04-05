@@ -1,17 +1,17 @@
-<mat-grid-list cols="4" rowHeight="70">
+<mat-grid-list cols="4" rowHeight="fit">
   <mat-grid-tile colspan="4" rowspan="1">
     <mat-toolbar color="primary">
       <span>Whatsapp - Messenger</span>
     </mat-toolbar>
   </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="14" style="vertical-align: top;">
+  <mat-grid-tile colspan="1" rowspan="15"  style="vertical-align: top;">
     <user-list [accountIdentifier]="accountIdentifier"
-               [currentParticipantId]="currentParticipantId"
+               [currentParticipant]="currentParticipant"
                (participantSelected)="handleParticipantChange($event)"
     >
     </user-list>
   </mat-grid-tile>
-  <mat-grid-tile colspan="3" rowspan="14">
-    <communication [accountIdentifier]="accountIdentifier" [currentParticipantId]="currentParticipantId"></communication>
+  <mat-grid-tile colspan="3" rowspan="15">
+    <communication [accountIdentifier]="accountIdentifier" [currentParticipant]="currentParticipant"></communication>
   </mat-grid-tile>
 </mat-grid-list>

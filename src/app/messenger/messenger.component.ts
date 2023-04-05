@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MessageService} from "../message.service";
+import {Participant} from "../pojos";
+import {WebsocketService} from "../websocket.service";
 
 @Component({
   selector: 'messenger',
@@ -8,16 +9,17 @@ import {MessageService} from "../message.service";
 })
 export class MessengerComponent implements OnInit {
 
-  constructor() {}
+constructor(private websocketService: WebsocketService) {}
 
   accountIdentifier: string = "15550501552";
-  currentParticipantId: number = 0;
+  currentParticipant?: Participant;
 
   ngOnInit(): void {
+    this.websocketService.connect();
   }
 
-  handleParticipantChange(value : number){
-    this.currentParticipantId = value;
+  handleParticipantChange(value : Participant){
+    this.currentParticipant = value;
   }
 
 }

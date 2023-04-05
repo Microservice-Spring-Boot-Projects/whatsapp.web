@@ -11,6 +11,10 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { CommunicationComponent } from './messenger/communication/communication.component';
 import { UserListComponent } from './messenger/user-list/user-list.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { UserListComponent } from './messenger/user-list/user-list.component';
     MatToolbarModule,
     MatGridListModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
