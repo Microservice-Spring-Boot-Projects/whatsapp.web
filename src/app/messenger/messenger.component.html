@@ -7,11 +7,12 @@
   <mat-grid-tile colspan="1" rowspan="15"  style="vertical-align: top;">
     <user-list [accountIdentifier]="accountIdentifier"
                [currentParticipant]="currentParticipant"
-               (participantSelected)="handleParticipantChange($event)"
-    >
+               (participantSelected)="handleParticipantChange($event)">
     </user-list>
   </mat-grid-tile>
   <mat-grid-tile colspan="3" rowspan="15">
-    <communication [accountIdentifier]="accountIdentifier" [currentParticipant]="currentParticipant"></communication>
+    <communication [accountIdentifier]="accountIdentifier"
+                   [currentParticipant]="currentParticipant">
+    </communication>
   </mat-grid-tile>
 </mat-grid-list>

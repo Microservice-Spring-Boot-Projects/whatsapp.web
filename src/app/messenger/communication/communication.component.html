@@ -1,22 +1,24 @@
 <div id="communicationContent">
-  <ng-container *ngFor="let message of messages">
-    <div class="communicationText" [class.right]="message.type == 1" [class.left]="message.type == 2">
-      <span [class.received]="message.type == 1" [class.sent]="message.type == 2">{{message.text}}</span>
-    </div>
-  </ng-container>
+  <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="communcation-viewport">
+    <ng-container *cdkVirtualFor="let message of messages">
+      <div class="communicationText" [class.right]="message.type == 1" [class.left]="message.type == 2">
+        <span [class.received]="message.type == 1" [class.sent]="message.type == 2">{{message.text}}</span>
+      </div>
+    </ng-container>
+  </cdk-virtual-scroll-viewport>
   <div class="textField">
     <mat-divider></mat-divider>
-      <div style="width: 100%;height: 100%;">
-        <div style="float: left;width: 80%;">
-          <mat-form-field class="message-full-width">
-            <mat-label>Text</mat-label>
-            <input type="text" matInput placeholder="Text" [(ngModel)]="messageText"
-                   [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-        </div>
-        <div style="height: 100%;">
-          <mat-icon class="postButton" (click)="postMessage()">send</mat-icon>
-        </div>
+    <div style="width: 100%;height: 100%;">
+      <div style="float: left;width: 80%;">
+        <mat-form-field class="message-full-width">
+          <mat-label>Text</mat-label>
+          <input type="text" matInput placeholder="Text" [(ngModel)]="messageText"
+                 [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
       </div>
+      <div style="height: 100%;">
+        <mat-icon class="postButton" (click)="postMessage()">send</mat-icon>
+      </div>
+    </div>
   </div>
 </div>
