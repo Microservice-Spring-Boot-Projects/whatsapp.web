@@ -26,4 +26,22 @@ export class Participant extends AuditEntity{
   companyName?: string;
   participantName?: string;
   participantMobile?: string;
+  messages = new Map<number, Message>();
+}
+
+export class Company{
+  id?: number;
+  name?: string;
+  accounts?: Account[];
+}
+
+export class Account {
+  id?: number;
+  identifier?: string;
+  type?: string;
+}
+
+export class User {
+  username?: string;
+  company?: Company[];
 }

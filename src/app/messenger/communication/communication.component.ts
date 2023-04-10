@@ -18,36 +18,26 @@ export class CommunicationComponent implements OnInit {
 
   messageText?: string;
 
-  messages: Message[] = [];
-
   ngOnChanges(changes: SimpleChanges) {
-    let change = changes['currentParticipant'];
-    if (!change.firstChange)
-      this.findMessages(this.accountIdentifier, change.currentValue.id as number);
   }
 
   ngOnInit(): void {
   }
 
-  findMessages(accountIdentifier: string, participantId: number) {
-    this.messageService.findMessages(accountIdentifier, participantId).subscribe({
-      next: (v) => {
-        this.messages = v as Message[];
-        if (!environment.production)
-          console.log(v);
-      }
-    });
-  }
-
   postMessage() {
+    if(!this.accountIdentifier){
+      console.log("gibt et nicht");
+      return;
+    }
     let message = new Message();
     message.text = this.messageText;
     message.accountIdentifier = this.accountIdentifier;
     message.participant = this.currentParticipant;
+    console.log(message);
     this.messageService.postMessage(message).subscribe({
       next: (v) => {
         this.messageText = "";
-        this.messages.unshift(v as Message);
+        //this.messages.unshift(v as Message);
       }
     });
   }

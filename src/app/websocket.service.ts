@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {environment} from "../environments/environment";
+import {Subject} from "rxjs";
+import {Message} from "./pojos";
 export const WS_ENDPOINT = environment.wsEndpoint;
 export const RECONNECT_INTERVAL = environment.reconnectInterval;
 
@@ -14,6 +16,13 @@ export class WebsocketService {
   webSocketEndPoint: string = 'https://localhost:8445/whatsapp/websocket';
   topic: string = "/topic/message";
   stompClient: any;
+
+  // @ts-ignore
+  private myFunc: (message) => void;
+  onWebsocketEvent(fn: (message:Message) => void) {
+    this.myFunc = fn;
+    // from now on, call myFunc wherever you want inside this service
+  }
 
   constructor() {
   }
@@ -54,16 +63,14 @@ export class WebsocketService {
    * @param {*} message
    */
   // @ts-ignore
-  send(message) {
+  send(message: Message) {
     console.log("calling logout api via web socket");
     this.stompClient.send("/app/message", {}, JSON.stringify(message));
   }
 
   // @ts-ignore
-  onMessageReceived(message) {
-    console.log("Message Recieved from Server :: ");
-    console.log(message);
-    //this.appComponent.handleMessage(JSON.stringify(message.body));
+  onMessageReceived(message: Message) {
+    this.myFunc(message);
   }
 
 }

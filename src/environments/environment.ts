@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   MESSAGE_URL: "https://localhost:8445/whatsapp/messages",
+  USER_URL: "https://localhost:8447/user/user",
   wsEndpoint: 'wss://localhost:8445/whatsapp/websocket',
   reconnectInterval: 2000
 };

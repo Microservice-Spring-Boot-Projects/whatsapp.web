@@ -1,8 +1,8 @@
 <mat-list>
-  <ng-container *ngFor="let participant of participants">
-    <mat-list-item (click)="selectParticipant(participant)" style="cursor: pointer;">
-      <div matListItemTitle class="user-name">{{participant.participantName}}</div>
-      <div matListItemLine >{{participant.participantMobile}}</div>
+  <ng-container *ngFor="let participant of map | keyvalue">
+    <mat-list-item (click)="selectParticipant(participant.value)" style="cursor: pointer;">
+      <div matListItemTitle class="user-name">{{participant.value.participantName}}</div>
+      <div matListItemLine >{{participant.value.participantMobile}}</div>
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-container>
