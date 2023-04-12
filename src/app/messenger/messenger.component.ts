@@ -24,13 +24,16 @@ constructor(private websocketService: WebsocketService
   }
 
   ngOnInit(): void {
-    this.websocketService.onWebsocketEvent(this.doThis.bind(this));
+    this.websocketService.onWebsocketEvent(this.handleMsg.bind(this));
     this.websocketService.connect();
     this.findParticipants(this.accountIdentifier);
   }
 
-  doThis(message: Message) {
-    console.log("mega: "+message.text);
+  handleMsg(message: Message) {
+    let participant = this.map.get(message.participant?.id as number) as Participant;
+    participant.messages.set(message.id as number, message);
+    this.map.set(participant.id as number, participant);
+    this.currentParticipant = Object.assign({}, participant);
   }
 
   handleParticipantChange(value : Participant){

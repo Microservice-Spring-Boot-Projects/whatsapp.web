@@ -1,8 +1,21 @@
 <div id="communicationContent">
-  <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="communcation-viewport">
+  <cdk-virtual-scroll-viewport appendOnly [itemSize]="itemSize" class="communication-viewport" #scrollViewport>
     <ng-container *cdkVirtualFor="let message of currentParticipant?.messages | keyvalue">
       <div class="communicationText" [class.right]="message.value.type == 1" [class.left]="message.value.type == 2">
-        <span [class.received]="message.value.type == 1" [class.sent]="message.value.type == 2">{{message.value.text}}</span>
+        <span [class.received]="message.value.type == 1" [class.sent]="message.value.type == 2">
+          {{message.value.text}}
+          <ng-container *ngIf="message.value.media">
+            <img *ngIf="message.value.media.contentType.startsWith('image')" [src]="imagePath(message.value.media)" width="300px"/>
+            <video *ngIf="message.value.media.contentType.startsWith('video')"  width="300px" controls>
+              <source [src]="imagePath(message.value.media)" type="{{message.value.media.contentType}}">
+              Your browser does not support the video tag.
+            </video>
+            <audio *ngIf="message.value.media.contentType.startsWith('audio')" [src]="imagePath(message.value.media)" width="300px" controls>
+              <source [src]="imagePath(message.value.media)" type="{{message.value.media.contentType}}">
+              Your browser does not support the audio tag.
+            </audio>
+          </ng-container>
+        </span>
       </div>
     </ng-container>
   </cdk-virtual-scroll-viewport>

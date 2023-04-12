@@ -18,6 +18,14 @@ export class Message extends AuditEntity {
   text?: string;
   type?: number;
   read?: boolean;
+  media?: Media;
+}
+
+export class Media extends AuditEntity {
+  id?: number;
+  contentType?: string;
+  name?: string;
+  content?: string;
 }
 
 export class Participant extends AuditEntity{

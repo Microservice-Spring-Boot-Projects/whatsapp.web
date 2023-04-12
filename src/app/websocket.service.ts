@@ -4,6 +4,7 @@ import * as SockJS from 'sockjs-client';
 import {environment} from "../environments/environment";
 import {Subject} from "rxjs";
 import {Message} from "./pojos";
+import {Frame} from "stompjs";
 export const WS_ENDPOINT = environment.wsEndpoint;
 export const RECONNECT_INTERVAL = environment.reconnectInterval;
 
@@ -69,7 +70,8 @@ export class WebsocketService {
   }
 
   // @ts-ignore
-  onMessageReceived(message: Message) {
+  onMessageReceived(msg: Frame) {
+    let message: Message = JSON.parse(msg.body);
     this.myFunc(message);
   }
 
