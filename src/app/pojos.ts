@@ -7,8 +7,10 @@ export interface Serializable {
 export class AuditEntity implements Serializable{
   createdBy?: string;
   createdAt?: Date;
+  created_at_format?: string;
   modifiedBy?: string;
   modifiedAt?: Date;
+  modified_at_format?: string;
 }
 
 export class Message extends AuditEntity {
@@ -17,6 +19,7 @@ export class Message extends AuditEntity {
   participant?: Participant;
   text?: string;
   type?: number;
+  direction?: number;
   read?: boolean;
   media?: Media;
 }
@@ -35,6 +38,8 @@ export class Participant extends AuditEntity{
   participantName?: string;
   participantMobile?: string;
   messages = new Map<number, Message>();
+  newMessageCount?: number = 0;
+  lastMessage?: number;
 }
 
 export class Company{
@@ -47,6 +52,13 @@ export class Account {
   id?: number;
   identifier?: string;
   type?: string;
+}
+
+export class AccountProperty {
+  id?: number;
+  property_name?: string;
+  property_type?: string;
+  property_value?: string;
 }
 
 export class User {

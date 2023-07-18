@@ -1,6 +1,6 @@
 <mat-grid-list cols="4" rowHeight="fit">
   <mat-grid-tile colspan="4" rowspan="1">
-    <mat-toolbar color="primary">
+    <mat-toolbar color="black">
       <span>Whatsapp - Messenger</span>
     </mat-toolbar>
   </mat-grid-tile>
@@ -12,7 +12,8 @@
   </mat-grid-tile>
   <mat-grid-tile colspan="3" rowspan="15">
     <communication [accountIdentifier]="accountIdentifier"
-                   [currentParticipant]="currentParticipant">
+                   [currentParticipant]="currentParticipant"
+                   [templates]="templates">
     </communication>
   </mat-grid-tile>
 </mat-grid-list>

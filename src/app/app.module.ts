@@ -17,13 +17,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { environment } from "../environments/environment";
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
         url: 'https://keycloak.missforty.de',
-        realm: 'missfortyTestRealm',
+        realm: environment.KEYCLOAK_REALM,
         clientId: 'whatsapp-ml'
       },
       initOptions: {
@@ -54,7 +57,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatInputModule,
     MatIconModule,
     ScrollingModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [{
     provide: APP_INITIALIZER,

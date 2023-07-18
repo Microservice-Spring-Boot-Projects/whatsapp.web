@@ -1,8 +1,8 @@
 <div id="communicationContent">
   <cdk-virtual-scroll-viewport appendOnly [itemSize]="itemSize" class="communication-viewport" #scrollViewport>
     <ng-container *cdkVirtualFor="let message of currentParticipant?.messages | keyvalue">
-      <div class="communicationText" [class.right]="message.value.type == 1" [class.left]="message.value.type == 2">
-        <span [class.received]="message.value.type == 1" [class.sent]="message.value.type == 2">
+      <div class="communicationText" [class.right]="message.value.direction == 1" [class.left]="message.value.direction == 2">
+        <span [class.received]="message.value.direction == 1" [class.sent]="message.value.direction == 2">
           {{message.value.text}}
           <ng-container *ngIf="message.value.media">
             <img *ngIf="message.value.media.contentType.startsWith('image')" [src]="imagePath(message.value.media)" width="300px"/>
@@ -10,27 +10,38 @@
               <source [src]="imagePath(message.value.media)" type="{{message.value.media.contentType}}">
               Your browser does not support the video tag.
             </video>
-            <audio *ngIf="message.value.media.contentType.startsWith('audio')" [src]="imagePath(message.value.media)" width="300px" controls>
+            <audio *ngIf="message.value.media.contentType.startsWith('audio')" width="300px" controls>
               <source [src]="imagePath(message.value.media)" type="{{message.value.media.contentType}}">
               Your browser does not support the audio tag.
             </audio>
+            <a *ngIf="message.value.media.contentType.startsWith('application')" (click)="downloadFile(message.value.media)" style="cursor: pointer;">
+              {{message.value.media.name}}
+            </a>
           </ng-container>
         </span>
       </div>
     </ng-container>
   </cdk-virtual-scroll-viewport>
-  <div class="textField">
+  <div *ngIf="currentParticipant" class="textField">
     <mat-divider></mat-divider>
-    <div style="width: 100%;height: 100%;">
-      <div style="float: left;width: 80%;">
-        <mat-form-field class="message-full-width">
-          <mat-label>Text</mat-label>
-          <input type="text" matInput placeholder="Text" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}">
+    <div style="width: 100%;">
+      <div style="float: left;width: 40%;height: 50%;vertical-align: center;">
+        <mat-form-field class="message-full-width" appearance="outline">
+          <input type="text" matInput placeholder="Text" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" (keyup.enter)="postMessage()">
         </mat-form-field>
       </div>
-      <div style="height: 100%;">
-        <mat-icon class="postButton" (click)="postMessage()">send</mat-icon>
+      <div style="width:20%; float:left;height: 100%;margin-left: 5px; margin-top: 15px; text-align: center;">
+        <mat-icon class="postButton white-icon" (click)="postMessage()">send</mat-icon>
       </div>
+    </div>
+    <div style="text-align: center;margin-top: 5px;">
+      <mat-form-field appearance="outline">
+        <mat-label>Standard Nachricht auswählen</mat-label>
+        <mat-select [(ngModel)]="templateText">
+          <mat-option [value]=""></mat-option>
+          <mat-option *ngFor="let template of templates" value="{{template.property_value}}">{{template.property_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>

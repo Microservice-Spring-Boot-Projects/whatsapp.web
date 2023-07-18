@@ -24,4 +24,8 @@ export class UserConfigService {
   getuser(username: string): Observable<any> {
     return this.http.get(environment.USER_URL + "/" + username, this.httpOptions);
   }
+
+  getTemplates(accountIdenifier: string): Observable<any> {
+    return this.http.get(environment.ACCOUNT_USER_URL + "/templates?identifier=" + accountIdenifier);
+  }
 }

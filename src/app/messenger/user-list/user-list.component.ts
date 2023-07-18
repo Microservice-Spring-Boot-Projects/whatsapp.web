@@ -22,6 +22,10 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+
+  }
+
+  ngDoCheck(){
   }
 
   selectParticipant(participant: Participant) {
@@ -29,5 +33,11 @@ export class UserListComponent implements OnInit {
     this.participantSelected.emit(this.currentParticipant);
   }
 
+  // @ts-ignore
+  asIsOrder(a, b) {
+    if (a.value.lastMessage < b.value.lastMessage) return 1;
+    if (a.value.lastMessage > b.value.lastMessage) return -1;
+    return 0;
+  }
 
 }

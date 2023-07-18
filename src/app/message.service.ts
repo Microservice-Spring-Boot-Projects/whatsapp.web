@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {environment} from "../environments/environment";
 import {Message} from "./pojos";
 
@@ -26,10 +26,10 @@ export class MessageService {
     return this.http.get(environment.MESSAGE_URL + "/listParticipants?accountIdentifier=" + accountIdenifier, this.httpOptions);
   }
 
-  findMessages(accountIdenifier: string, participantId: number) {
+  findMessages(accountIdenifier: string, participantId: number)  {
     return this.http.get(environment.MESSAGE_URL + "?accountIdentifier=" + accountIdenifier
       + "&participantId=" + participantId
-      , this.httpOptions);
+      , this.httpOptions).pipe(map(response => response) );
   }
 
   postMessage(message: Message): Observable<any> {

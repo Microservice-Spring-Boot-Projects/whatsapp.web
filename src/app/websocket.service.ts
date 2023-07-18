@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {environment} from "../environments/environment";
-import {Subject} from "rxjs";
 import {Message} from "./pojos";
 import {Frame} from "stompjs";
-export const WS_ENDPOINT = environment.wsEndpoint;
-export const RECONNECT_INTERVAL = environment.reconnectInterval;
+export const WS_ENDPOINT = environment.WEBSOCKET_ENDPOINT;
 
 
 @Injectable({
@@ -14,7 +12,6 @@ export const RECONNECT_INTERVAL = environment.reconnectInterval;
 })
 export class WebsocketService {
 
-  webSocketEndPoint: string = 'https://localhost:8445/whatsapp/websocket';
   topic: string = "/topic/message";
   stompClient: any;
 
@@ -22,7 +19,6 @@ export class WebsocketService {
   private myFunc: (message) => void;
   onWebsocketEvent(fn: (message:Message) => void) {
     this.myFunc = fn;
-    // from now on, call myFunc wherever you want inside this service
   }
 
   constructor() {
@@ -30,7 +26,7 @@ export class WebsocketService {
 
   connect() {
     console.log("Initialize WebSocket Connection");
-    let ws = new SockJS(this.webSocketEndPoint);
+    let ws = new SockJS(WS_ENDPOINT);
     this.stompClient = Stomp.over(ws);
     const _this = this;
     // @ts-ignore
@@ -50,7 +46,6 @@ export class WebsocketService {
     console.log("Disconnected");
   }
 
-  // on error, schedule a reconnection attempt
   // @ts-ignore
   errorCallBack(error) {
     console.log("errorCallBack -> " + error)

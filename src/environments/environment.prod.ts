@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
   MESSAGE_URL: "https://whatsapp.honselfood.de/whatsapp/messages",
-  USER_URL: "https://localhost:8447/user/user",
-  wsEndpoint: 'wss://localhost:8445/whatsapp/websocket',
-  reconnectInterval: 2000
+  USER_URL: "https://config.honselfood.de/user/user",
+  ACCOUNT_USER_URL: "https://config.honselfood.de/user/account",
+  WEBSOCKET_ENDPOINT:  "https://whatsapp.honselfood.de/whatsapp/websocket",
+  KEYCLOAK_REALM : "missfortyRealm"
 };

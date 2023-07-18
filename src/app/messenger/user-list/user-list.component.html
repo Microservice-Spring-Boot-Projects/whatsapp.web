@@ -1,7 +1,10 @@
 <mat-list>
-  <ng-container *ngFor="let participant of map | keyvalue">
+  <ng-container *ngFor="let participant of map | keyvalue : asIsOrder">
     <mat-list-item (click)="selectParticipant(participant.value)" style="cursor: pointer;">
       <div matListItemTitle class="user-name">{{participant.value.participantName}}</div>
+      <div *ngIf="participant.value.newMessageCount && participant.value.newMessageCount > 0" style="padding: 5px;">
+        <button mat-mini-fab>{{participant.value.newMessageCount}}</button>
+      </div>
       <div matListItemLine >{{participant.value.participantMobile}}</div>
     </mat-list-item>
     <mat-divider></mat-divider>

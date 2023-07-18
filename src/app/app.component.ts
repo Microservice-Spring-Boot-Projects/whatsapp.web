@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
-import {User} from "./pojos";
+import {AccountProperty, User} from "./pojos";
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public userProfile: KeycloakProfile | null = null;
 
   accountIdentifier?: string;
+  templates: AccountProperty[] = [];
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService) {
@@ -39,8 +40,15 @@ export class AppComponent implements OnInit {
         let user: User = v as User;
         user.company?.forEach(company => {
             company.accounts?.forEach(account => {
-              if(account.type == 'whatsapp')
+              if(account.type == 'whatsapp'){
                 this.accountIdentifier = account.identifier;
+                this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
+                  next:(v) => {
+                    this.templates = v;
+                    console.log(this.templates);
+                  }
+                });
+              }
             })
           }
         );
