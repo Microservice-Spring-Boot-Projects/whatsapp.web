@@ -5,8 +5,8 @@
 }
 
 #communicationContent{
-  height: 100%;
-  margin: 10px 20px 10px 10px;
+  height: 99%;
+  /*margin: 10px 20px 10px 10px;*/
 }
 
 .communicationText {
@@ -70,7 +70,7 @@ ul {
 }
 
 .communication-viewport {
-  height: 92%;
+  height: 93%;
   width: 100%;
 }
 

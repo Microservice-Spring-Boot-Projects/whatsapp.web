@@ -24,6 +24,8 @@ export class GlobalService {
   getMessageFromCode(code: string) : string{
     if(code == 'UNAUTHORIZED_REST_CALL')
       return "WhatsApp Token is not valid. Contact administrator!";
+    else if(code == 'WHATSAPP_NO_TEMPLATE')
+      return "Ausgewähltes Template existiert nicht!";
     return "undefined error message"
   }
 

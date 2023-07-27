@@ -21,6 +21,7 @@ export class MessengerComponent implements OnInit {
 
   @Input() accountIdentifier: string = "";
   @Input() templates: AccountProperty[] = [];
+  @Input() standards: AccountProperty[] = [];
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();

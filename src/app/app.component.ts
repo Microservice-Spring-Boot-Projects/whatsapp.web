@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
   accountIdentifier?: string;
   templates: AccountProperty[] = [];
+  standards: AccountProperty[] = [];
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService) {
@@ -46,6 +47,12 @@ export class AppComponent implements OnInit {
                   next:(v) => {
                     this.templates = v;
                     console.log(this.templates);
+                  }
+                });
+                this.userConfigService.getStandards(this.accountIdentifier as string).subscribe({
+                  next:(v) => {
+                    this.standards = v;
+                    console.log(this.standards);
                   }
                 });
               }

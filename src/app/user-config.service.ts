@@ -28,4 +28,8 @@ export class UserConfigService {
   getTemplates(accountIdenifier: string): Observable<any> {
     return this.http.get(environment.ACCOUNT_USER_URL + "/templates?identifier=" + accountIdenifier);
   }
+
+  getStandards(accountIdentifier: string): Observable<any> {
+    return this.http.get(environment.ACCOUNT_USER_URL + "/standards?identifier=" + accountIdentifier);
+  }
 }

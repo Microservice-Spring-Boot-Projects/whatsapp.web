@@ -25,23 +25,42 @@
   <div *ngIf="currentParticipant" class="textField">
     <mat-divider></mat-divider>
     <div style="width: 100%;">
-      <div style="float: left;width: 40%;height: 50%;vertical-align: center;">
+      <div style="float: left;width: 60%;margin-top: 5px;vertical-align: center;">
         <mat-form-field class="message-full-width" appearance="outline">
-          <input type="text" matInput placeholder="Text" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" (keyup.enter)="postMessage()">
+          <textarea type="text"
+                    matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5"
+                    placeholder="Text"
+                    [(ngModel)]="messageText"
+                    [ngModelOptions]="{standalone: true}"
+                    (keyup.enter)="postMessage()">
+          </textarea>
         </mat-form-field>
       </div>
-      <div style="width:20%; float:left;height: 100%;margin-left: 5px; margin-top: 15px; text-align: center;">
+      <div style="float: left;width: 34%;margin-top: 5px;vertical-align: center;">
+        <mat-form-field appearance="outline" class="message-full-width">
+          <mat-label>Standardnachricht auswählen</mat-label>
+          <mat-select [(ngModel)]="standardText" (selectionChange)="onStandardSelect()">
+            <mat-option [value]=""></mat-option>
+            <mat-option *ngFor="let standard of standards" value="{{standard.property_value}}">{{standard.property_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+     <!-- <div style="width:30%;text-align: center;margin-top: 5px;float: left;">
+        <mat-form-field appearance="outline" class="message-full-width">
+          <mat-label>Template auswählen</mat-label>
+          <mat-select [(ngModel)]="templateText">
+            <mat-option [value]=""></mat-option>
+            <mat-option *ngFor="let template of templates" value="{{template.property_value}}">{{template.property_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>-->
+      <div style="width:5%; float:left;height: 100%;margin-left: 5px; margin-top: 15px; text-align: center;">
         <mat-icon class="postButton white-icon" (click)="postMessage()">send</mat-icon>
       </div>
-    </div>
-    <div style="text-align: center;margin-top: 5px;">
-      <mat-form-field appearance="outline">
-        <mat-label>Standard Nachricht auswählen</mat-label>
-        <mat-select [(ngModel)]="templateText">
-          <mat-option [value]=""></mat-option>
-          <mat-option *ngFor="let template of templates" value="{{template.property_value}}">{{template.property_name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
     </div>
   </div>
 </div>

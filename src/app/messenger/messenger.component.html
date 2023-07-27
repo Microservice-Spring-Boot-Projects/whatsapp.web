@@ -10,10 +10,11 @@
                (participantSelected)="handleParticipantChange($event)">
     </user-list>
   </mat-grid-tile>
-  <mat-grid-tile colspan="3" rowspan="15">
+  <mat-grid-tile colspan="3" rowspan="15" style="vertical-align: top;">
     <communication [accountIdentifier]="accountIdentifier"
                    [currentParticipant]="currentParticipant"
-                   [templates]="templates">
+                   [templates]="templates"
+                   [standards]="standards">
     </communication>
   </mat-grid-tile>
 </mat-grid-list>
