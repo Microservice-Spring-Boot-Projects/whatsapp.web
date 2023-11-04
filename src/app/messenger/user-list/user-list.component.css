@@ -9,11 +9,15 @@
   width: 75%;
 }
 
+.selected {
+  font-weight: bold;
+}
+
 .mobile-number {
   color: darkgrey;
 }
 
-mat-list {
+mat-nav-list {
   flex-grow: 1;
   border: 3px solid green;
   height: calc(100vh - 64px);

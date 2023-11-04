@@ -15,6 +15,8 @@ export class UserListComponent implements OnInit {
   @Input() currentParticipant?: Participant;
   @Input() map?: Map<number, Participant>;
 
+  participantId: number;
+
   @Output()
   participantSelected: EventEmitter<Participant> = new EventEmitter;
 
@@ -29,6 +31,7 @@ export class UserListComponent implements OnInit {
   }
 
   selectParticipant(participant: Participant) {
+    this.participantId = participant.id as number;
     this.currentParticipant = participant as Participant;
     this.participantSelected.emit(this.currentParticipant);
   }

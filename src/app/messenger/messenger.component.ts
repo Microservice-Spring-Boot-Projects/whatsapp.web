@@ -59,7 +59,6 @@ export class MessengerComponent implements OnInit {
 
   private refreshParticipant(participant: Participant, message: Message) {
     participant = this.map.get(message.participant?.id as number) as Participant;
-    //console.log(participant);
     participant.messages.set(message.id as number, message);
     if (this.currentParticipant?.id != participant.id) {
       if (!participant.newMessageCount) participant.newMessageCount = 1;
