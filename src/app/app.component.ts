@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public userProfile: KeycloakProfile | null = null;
 
   accountIdentifier?: string;
+  accountId?: number;
   templates: AccountProperty[] = [];
   standards: AccountProperty[] = [];
 
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
             company.accounts?.forEach(account => {
               if(account.type == 'whatsapp'){
                 this.accountIdentifier = account.identifier;
+                this.accountId = account.id;
                 this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
                   next:(v) => {
                     this.templates = v;

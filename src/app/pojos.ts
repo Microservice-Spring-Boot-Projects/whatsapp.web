@@ -40,6 +40,7 @@ export class Participant extends AuditEntity{
   messages = new Map<number, Message>();
   newMessageCount?: number = 0;
   lastMessage?: number;
+  registrationMap?: any;
 }
 
 export class Company{

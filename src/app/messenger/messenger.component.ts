@@ -20,6 +20,7 @@ export class MessengerComponent implements OnInit {
   }
 
   @Input() accountIdentifier: string = "";
+  @Input() accountId: number = 0;
   @Input() templates: AccountProperty[] = [];
   @Input() standards: AccountProperty[] = [];
 
@@ -30,6 +31,7 @@ export class MessengerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.websocketService.setAccountId(this.accountId);
     this.websocketService.onWebsocketEvent(this.handleMsg.bind(this));
     this.websocketService.connect();
     this.findParticipants(this.accountIdentifier);

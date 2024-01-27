@@ -1,5 +1,6 @@
-<messenger *ngIf="accountIdentifier"
+<messenger *ngIf="accountIdentifier && accountId"
            [accountIdentifier]="accountIdentifier"
+           [accountId]="accountId"
            [templates]="templates"
            [standards]="standards">
 </messenger>

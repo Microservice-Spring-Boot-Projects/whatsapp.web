@@ -7,6 +7,9 @@
         <button mat-mini-fab>{{participant.value.newMessageCount}}</button>
       </div>
       <div matListItemLine >{{participant.value.participantMobile}}</div>
+      <div *ngIf="participant.value.registrationMap.brochure && participant.value.registrationMap.brochure.registrationOptin">
+        &nbsp;<mat-icon style="color: #25D366;">check_circle</mat-icon>
+      </div>
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-container>

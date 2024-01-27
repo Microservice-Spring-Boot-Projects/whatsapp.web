@@ -24,6 +24,7 @@ export class CommunicationComponent implements OnInit {
   }
 
   @Input() accountIdentifier: string = "";
+  @Input() accountId: number = 0;
   @Input() currentParticipant?: Participant;
   @Input() templates : AccountProperty[] = [];
   @Input() standards : AccountProperty[] = [];
@@ -99,7 +100,7 @@ export class CommunicationComponent implements OnInit {
     message.type = this.templateText ? 1 : 0;
     message.accountIdentifier = this.accountIdentifier;
     message.participant = this.currentParticipant;
-    this.messageService.postMessage(message).subscribe({
+    this.messageService.postMessage(message, this.accountId).subscribe({
       next: (v) => {
         this.messageText = "";
         if(this.templateText)

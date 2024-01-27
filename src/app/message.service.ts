@@ -32,7 +32,7 @@ export class MessageService {
       , this.httpOptions).pipe(map(response => response) );
   }
 
-  postMessage(message: Message): Observable<any> {
+  postMessage(message: Message, accountId: number): Observable<any> {
     return this.http.post(environment.MESSAGE_URL, message, this.httpOptions);
   }
 

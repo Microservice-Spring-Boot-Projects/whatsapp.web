@@ -14,6 +14,7 @@ export class WebsocketService {
 
   topic: string = "/topic/message";
   stompClient: any;
+  accountId: number;
 
   // @ts-ignore
   private myFunc: (message) => void;
@@ -24,7 +25,13 @@ export class WebsocketService {
   constructor() {
   }
 
+  setAccountId(accountId: number){
+    this.accountId = accountId;
+  }
+
   connect() {
+    //We need a socket for every account. That why the connection will be established that way
+    this.topic = this.topic + "/" + this.accountId;
     console.log("Initialize WebSocket Connection");
     let ws = new SockJS(WS_ENDPOINT);
     this.stompClient = Stomp.over(ws);
