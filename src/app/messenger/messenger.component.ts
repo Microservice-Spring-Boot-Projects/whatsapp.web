@@ -5,6 +5,7 @@ import {MessageService} from "../message.service";
 import {environment} from "../../environments/environment";
 import structuredClone from '@ungap/structured-clone';
 import {GlobalService} from "../global.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'messenger',
@@ -27,7 +28,13 @@ export class MessengerComponent implements OnInit {
   currentParticipant?: Participant;
   map = new Map<number, Participant>();
 
+  eventsSubject: Subject<void> = new Subject<void>();
+
   ngOnChanges(changes: SimpleChanges) {
+  }
+
+  emitEventToChild() {
+    this.eventsSubject.next();
   }
 
   async ngOnInit() {
@@ -100,6 +107,7 @@ export class MessengerComponent implements OnInit {
         participants.forEach(participant => {
           this.map.set(participant.id as number, participant);
         });
+        this.emitEventToChild();
         if (!environment.production)
           console.log(this.map);
       }

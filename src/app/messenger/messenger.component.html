@@ -7,7 +7,8 @@
   <mat-grid-tile colspan="1" rowspan="15"  style="vertical-align: top;">
     <user-list [currentParticipant]="currentParticipant"
                [map]="map"
-               (participantSelected)="handleParticipantChange($event)">
+               (participantSelected)="handleParticipantChange($event)"
+               [events]="eventsSubject" >
     </user-list>
   </mat-grid-tile>
   <mat-grid-tile colspan="3" rowspan="15" style="vertical-align: top;">

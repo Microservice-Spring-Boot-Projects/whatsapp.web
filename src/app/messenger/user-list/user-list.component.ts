@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MessageService} from "../../message.service";
 import {Participant} from "../../pojos";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'user-list',
@@ -12,8 +13,12 @@ export class UserListComponent implements OnInit {
   constructor(private messageService: MessageService) {
   }
 
+  private eventsSubscription: Subscription;
+
   @Input() currentParticipant?: Participant;
   @Input() map?: Map<number, Participant>;
+  @Input() events: Observable<void>;
+
 
   participantList: Participant[];
 
@@ -23,12 +28,17 @@ export class UserListComponent implements OnInit {
   participantSelected: EventEmitter<Participant> = new EventEmitter;
 
   ngOnInit(): void {
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.userSearch('');
-    }, 2000);  //5s
+    }, 2000);*/
+    this.eventsSubscription = this.events.subscribe(() =>  this.userSearch(''));
   }
 
   ngDoCheck() {
+  }
+
+  ngOnDestroy(){
+    this.eventsSubscription.unsubscribe();
   }
 
   selectParticipant(participant: Participant) {
