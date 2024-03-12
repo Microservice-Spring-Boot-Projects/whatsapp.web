@@ -30,11 +30,11 @@ export class MessengerComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.websocketService.setAccountId(this.accountId);
     this.websocketService.onWebsocketEvent(this.handleMsg.bind(this));
     this.websocketService.connect();
-    this.findParticipants(this.accountIdentifier);
+    await this.findParticipants(this.accountIdentifier);
   }
 
   handleMsg(message: Message) {
@@ -76,6 +76,7 @@ export class MessengerComponent implements OnInit {
       this.currentParticipant = participant;
   }
 
+  /**Is called when user is selected*/
   handleParticipantChange(value: Participant) {
     let participant = this.map.get(value.id as number) as Participant;
     if (!participant.messages || participant.messages.size == 0)
@@ -92,7 +93,7 @@ export class MessengerComponent implements OnInit {
     }
   }
 
-  findParticipants(accountIdenifier: string) {
+  async findParticipants(accountIdenifier: string) {
     this.messageService.findParticipants(accountIdenifier).subscribe({
       next: (v) => {
         let participants = v as Participant[];
@@ -116,5 +117,4 @@ export class MessengerComponent implements OnInit {
     return messageMap;
   }
 
-  //Object.assign({}, participant);
 }

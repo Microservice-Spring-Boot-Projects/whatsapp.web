@@ -6,11 +6,28 @@
 
 .user-name {
   color: black;
-  width: 75%;
+  font-size: small;
+  width: 55%;
+}
+
+.mobile {
+  font-size: small;
+  width: 25%;
+}
+
+.mat-icon {
+  color: #25D366;
+  font-size: 20px;
+}
+
+.iconLine {
+  text-align: right;
+  width: 15%;
 }
 
 .selected {
   font-weight: bold;
+  font-size: large;
 }
 
 .mobile-number {

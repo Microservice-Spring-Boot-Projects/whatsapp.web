@@ -1,16 +1,31 @@
 <mat-nav-list>
-  <ng-container *ngFor="let participant of map | keyvalue : asIsOrder">
-    <mat-list-item (click)="selectParticipant(participant.value);" style="cursor: pointer;"
-                   [class.selected]="participantId == participant.value.id">
-      <div matListItemTitle class="user-name">{{participant.value.participantName}}</div>
-      <div *ngIf="participant.value.newMessageCount && participant.value.newMessageCount > 0" style="padding: 5px;">
-        <button mat-mini-fab>{{participant.value.newMessageCount}}</button>
+  <mat-toolbar><label style="font-size: medium;">Suche:</label>&nbsp;&nbsp;<input (keyup)="searchUser($event)" style="height: 30px;width: 300px;"/></mat-toolbar>
+  <!--<ng-container *ngFor="let participant of map | keyvalue : asIsOrder">-->
+  <ng-container *ngFor="let participant of participantList">
+    <mat-list-item (click)="selectParticipant(participant);" style="cursor: pointer;height: 35px;"
+                   [class.selected]="participantId == participant.id">
+      <div matListItemTitle class="user-name">{{participant.participantName}}</div>
+      <div *ngIf="participant.newMessageCount && participant.newMessageCount > 0" style="padding: 5px;">
+        <button mat-mini-fab>{{participant.newMessageCount}}</button>
       </div>
-      <div matListItemLine >{{participant.value.participantMobile}}</div>
-      <div *ngIf="participant.value.registrationMap.brochure && participant.value.registrationMap.brochure.registrationOptin">
-        &nbsp;<mat-icon style="color: #25D366;">check_circle</mat-icon>
+      <div matListItemLine class="mobile">{{participant.participantMobile}}</div>
+      <div class="iconLine" *ngIf="participant.registrationMap.brochure && participant.registrationMap.brochure.registrationOptin">
+        &nbsp;<mat-icon>check_circle</mat-icon>
       </div>
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-container>
 </mat-nav-list>
+
+<!--<mat-list-item (click)="selectParticipant(participant.value);" style="cursor: pointer;height: 35px;"
+                   [class.selected]="participantId == participant.value.id">
+      <div matListItemTitle class="user-name">{{participant.value.participantName}}</div>
+      <div *ngIf="participant.value.newMessageCount && participant.value.newMessageCount > 0" style="padding: 5px;">
+        <button mat-mini-fab>{{participant.value.newMessageCount}}</button>
+      </div>
+      <div matListItemLine class="mobile">{{participant.value.participantMobile}}</div>
+      <div class="iconLine" *ngIf="participant.value.registrationMap.brochure && participant.value.registrationMap.brochure.registrationOptin">
+        &nbsp;<mat-icon>check_circle</mat-icon>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>-->

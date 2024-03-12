@@ -19,6 +19,14 @@
   text-align: left;
 }
 
+.center {
+  background-color: cornsilk;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 4px 6px;
+  text-align: center;
+}
+
 .right {
   text-align: right;
 }
@@ -29,6 +37,9 @@
   color: white;
   padding: 4px 10px;
   margin-right: 20px;
+  font-size: small;
+  display: inline-block;
+  max-width: 60%;
 }
 
 .sent {
@@ -36,6 +47,9 @@
   border-radius: 10px;
   color: black;
   padding: 4px 10px;
+  font-size: small;
+  display: inline-block;
+  max-width: 60%;
 }
 
 .message-full-width {
@@ -68,8 +82,6 @@ ul {
   margin: 2px;
   vertical-align: center;
 }
-
-
 
 .communication-viewport {
   height: 93%;

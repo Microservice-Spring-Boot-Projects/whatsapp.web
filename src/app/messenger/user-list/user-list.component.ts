@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MessageService} from "../../message.service";
 import {Participant} from "../../pojos";
 
@@ -15,19 +15,20 @@ export class UserListComponent implements OnInit {
   @Input() currentParticipant?: Participant;
   @Input() map?: Map<number, Participant>;
 
+  participantList: Participant[];
+
   participantId: number;
 
   @Output()
   participantSelected: EventEmitter<Participant> = new EventEmitter;
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.userSearch('');
+    }, 2000);  //5s
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-
-  }
-
-  ngDoCheck(){
+  ngDoCheck() {
   }
 
   selectParticipant(participant: Participant) {
@@ -36,11 +37,20 @@ export class UserListComponent implements OnInit {
     this.participantSelected.emit(this.currentParticipant);
   }
 
-  // @ts-ignore
-  asIsOrder(a, b) {
-    if (a.value.lastMessage < b.value.lastMessage) return 1;
-    if (a.value.lastMessage > b.value.lastMessage) return -1;
-    return 0;
+  searchUser(event: KeyboardEvent) {
+    this.userSearch((event.target as HTMLInputElement).value);
   }
 
+  private userSearch(key: string) {
+    this.participantList = Array.from((this.map as Map<number, Participant>).values())
+      .filter((item: Participant) => item.participantName?.toLowerCase().includes(key.toLowerCase()) || item.participantMobile?.includes(key))
+      .sort((a, b) => {
+          let aLastMessage = a.lastMessage as number;
+          let bLastMessage = b.lastMessage as number;
+          if (aLastMessage < bLastMessage) return 1;
+          if (aLastMessage > bLastMessage) return -1;
+          return 0;
+        }
+      );
+  }
 }

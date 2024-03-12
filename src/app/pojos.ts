@@ -22,6 +22,8 @@ export class Message extends AuditEntity {
   direction?: number;
   read?: boolean;
   media?: Media;
+  message_date?: string;
+  message_time?: string;
 }
 
 export class Media extends AuditEntity {

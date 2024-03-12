@@ -1,9 +1,12 @@
 <div id="communicationContent">
   <cdk-virtual-scroll-viewport appendOnly [itemSize]="itemSize" class="communication-viewport" #scrollViewport>
     <ng-container *cdkVirtualFor="let message of currentParticipant?.messages | keyvalue">
+      <div *ngIf="message.value.message_date," class="communicationText" style="text-align: center;" >
+        <span class="center">{{message.value.message_date}}</span>
+      </div>
       <div class="communicationText" [class.right]="message.value.direction == 1" [class.left]="message.value.direction == 2">
         <span [class.received]="message.value.direction == 1" [class.sent]="message.value.direction == 2">
-          {{message.value.text}}
+          {{message.value.text}}&nbsp;<span style="font-size: xx-small">{{message.value.message_time}}</span>
           <ng-container *ngIf="message.value.media">
             <img *ngIf="message.value.media.contentType.startsWith('image')" [src]="imagePath(message.value.media)" width="300px"/>
             <video *ngIf="message.value.media.contentType.startsWith('video')"  width="300px" controls>
