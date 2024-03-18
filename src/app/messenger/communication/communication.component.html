@@ -1,6 +1,6 @@
 <div id="communicationContent">
   <cdk-virtual-scroll-viewport appendOnly [itemSize]="itemSize" class="communication-viewport" #scrollViewport>
-    <ng-container *cdkVirtualFor="let message of currentParticipant?.messages | keyvalue">
+    <ng-container *cdkVirtualFor="let message of currentParticipant?.messages | keyvalue : asIsOrder">
       <div *ngIf="message.value.message_date," class="communicationText" style="text-align: center;" >
         <span class="center">{{message.value.message_date}}</span>
       </div>

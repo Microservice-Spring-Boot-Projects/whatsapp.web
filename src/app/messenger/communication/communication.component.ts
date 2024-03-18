@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges, ViewChild, NgZone} from '@angular/core';
+import {Component, Input,  SimpleChanges, ViewChild, NgZone, AfterViewInit} from '@angular/core';
 import {MessageService} from "../../message.service";
 import {AccountProperty, Media, Message, Participant} from "../../pojos";
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
@@ -6,15 +6,15 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {GlobalService} from "../../global.service";
 import {UserConfigService} from "../../user-config.service";
 import {environment} from "../../../environments/environment";
-import {take} from 'rxjs/operators';
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'communication',
   templateUrl: './communication.component.html',
   styleUrls: ['./communication.component.css']
 })
-export class CommunicationComponent implements OnInit {
+export class CommunicationComponent implements AfterViewInit {
 
   constructor(private messageService: MessageService
     ,private _sanitizer: DomSanitizer
@@ -28,6 +28,9 @@ export class CommunicationComponent implements OnInit {
   @Input() currentParticipant?: Participant;
   @Input() templates : AccountProperty[] = [];
   @Input() standards : AccountProperty[] = [];
+  @Input() eventsMsg: Observable<void>;
+
+  private eventsSubscription: Subscription;
 
   @ViewChild('scrollViewport')
   // @ts-ignore
@@ -35,10 +38,9 @@ export class CommunicationComponent implements OnInit {
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
+  /*triggerResize() {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
-  }
+  }*/
 
   itemSize: number = 25;
   messageText?: string;
@@ -46,8 +48,24 @@ export class CommunicationComponent implements OnInit {
   standardText?: string;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.scrollViewport();
+    if(!environment.production)
+      console.log("ngOnChanges(changes: SimpleChanges)");
+    setTimeout(() => {
+      this.scrollViewport()
+    }, 0);
+    setTimeout(() => {
+      this.scrollViewport()
+    }, 500);
   }
+
+  // @ts-ignore
+  asIsOrder(a, b) {
+      if (a.value.created_at_long < b.value.created_at_long) return -1;
+      if (a.value.created_at_long > b.value.created_at_long) return 1;
+      return 0;
+  }
+
+
 
   public imagePath(media: Media): SafeUrl {
     return this._sanitizer.bypassSecurityTrustUrl('data:' + media.contentType + ';base64,' + media.content);
@@ -63,26 +81,34 @@ export class CommunicationComponent implements OnInit {
   }
 
   scrollViewport(){
+    if(!environment.production)
+      console.log("scrollViewport()");
     if(this.cdkVirtualScrollViewport)
-      setTimeout(() => {
-        this.cdkVirtualScrollViewport.scrollTo({
-          bottom: 0,
-          behavior: 'auto',
-        });
-      },1500);
+      this.cdkVirtualScrollViewport.scrollTo({
+        bottom: 0,
+        behavior: 'auto',
+      });
   }
 
   ngOnInit(): void {
-    this.scrollViewport();
+  }
+
+  ngAfterViewInit(): void {
+    if(!environment.production)
+      console.log("ngAfterViewInit(): void");
+    this.eventsSubscription = this.eventsMsg.subscribe(() =>  this.scrollViewport());
   }
 
   onStandardSelect(){
-    console.log(typeof this.standardText);
+    if(!environment.production)
+      console.log("onStandardSelect()");
     if(this.standardText)
       this.messageText = this.standardText;
   }
 
   postMessage() {
+    if(!environment.production)
+      console.log("postMessage()");
     if(
       /** Account identifier cannot be missing. this whatsapp account **/
       !this.accountIdentifier ||

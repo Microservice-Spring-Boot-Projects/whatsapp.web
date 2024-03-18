@@ -3,6 +3,7 @@ import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
 import {AccountProperty, User} from "./pojos";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,8 @@ export class AppComponent implements OnInit {
   templates: AccountProperty[] = [];
   standards: AccountProperty[] = [];
 
+  public isWhatsappAdmin = false;
+
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService) {
   }
@@ -32,6 +35,12 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
+      const roles = this.keycloak.getUserRoles();
+      if(!environment.production){
+        console.log(this.userProfile);
+        console.log(roles);
+      }
+      this.isWhatsappAdmin = roles.includes('admin');
       this.initUser(this.userProfile.username as string)
     } else this.initiateSession();
   }
@@ -48,13 +57,15 @@ export class AppComponent implements OnInit {
                 this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
                   next:(v) => {
                     this.templates = v;
-                    console.log(this.templates);
+                    if(!environment.production)
+                      console.log(this.templates);
                   }
                 });
                 this.userConfigService.getStandards(this.accountIdentifier as string).subscribe({
                   next:(v) => {
                     this.standards = v;
-                    console.log(this.standards);
+                    if(!environment.production)
+                      console.log(this.standards);
                   }
                 });
               }

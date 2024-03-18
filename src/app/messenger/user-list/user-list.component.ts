@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MessageService} from "../../message.service";
 import {Participant} from "../../pojos";
 import {Observable, Subscription} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'user-list',
@@ -10,7 +10,7 @@ import {Observable, Subscription} from "rxjs";
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private messageService: MessageService) {
+  constructor() {
   }
 
   private eventsSubscription: Subscription;
@@ -19,41 +19,49 @@ export class UserListComponent implements OnInit {
   @Input() map?: Map<number, Participant>;
   @Input() events: Observable<void>;
 
-
   participantList: Participant[];
-
   participantId: number;
+  searchTxt: string = "";
 
   @Output()
   participantSelected: EventEmitter<Participant> = new EventEmitter;
 
   ngOnInit(): void {
-    /*setTimeout(() => {
-      this.userSearch('');
-    }, 2000);*/
-    this.eventsSubscription = this.events.subscribe(() =>  this.userSearch(''));
+    if(!environment.production)
+      console.log("ngOnInit(): void");
+    this.eventsSubscription = this.events.subscribe(() => this.userSearch());
   }
 
   ngDoCheck() {
   }
 
   ngOnDestroy(){
+    if(!environment.production)
+      console.log("ngOnDestroy()");
     this.eventsSubscription.unsubscribe();
   }
 
   selectParticipant(participant: Participant) {
+    if(!environment.production)
+      console.log("selectParticipant(participant: Participant)");
     this.participantId = participant.id as number;
     this.currentParticipant = participant as Participant;
     this.participantSelected.emit(this.currentParticipant);
   }
 
-  searchUser(event: KeyboardEvent) {
-    this.userSearch((event.target as HTMLInputElement).value);
+  searchUser() {
+    if(!environment.production)
+      console.log("searchUser(event: KeyboardEvent)");
+    this.userSearch();
   }
 
-  private userSearch(key: string) {
+  private userSearch() {
+    if(!environment.production){
+      console.log("private userSearch(key: string)");
+      console.log("searchTxt: " + this.searchTxt);
+    }
     this.participantList = Array.from((this.map as Map<number, Participant>).values())
-      .filter((item: Participant) => item.participantName?.toLowerCase().includes(key.toLowerCase()) || item.participantMobile?.includes(key))
+      .filter((item: Participant) => item.participantName?.toLowerCase().includes(this.searchTxt.toLowerCase()) || item.participantMobile?.includes(this.searchTxt))
       .sort((a, b) => {
           let aLastMessage = a.lastMessage as number;
           let bLastMessage = b.lastMessage as number;

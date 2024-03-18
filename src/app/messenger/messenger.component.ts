@@ -3,9 +3,9 @@ import {AccountProperty, Message, Participant} from "../pojos";
 import {WebsocketService} from "../websocket.service";
 import {MessageService} from "../message.service";
 import {environment} from "../../environments/environment";
-import structuredClone from '@ungap/structured-clone';
 import {GlobalService} from "../global.service";
 import {Subject} from "rxjs";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'messenger',
@@ -17,6 +17,7 @@ export class MessengerComponent implements OnInit {
   constructor(private websocketService: WebsocketService
     , private messageService: MessageService
     , private globalService: GlobalService
+    , private readonly keycloak: KeycloakService
   ) {
   }
 
@@ -24,20 +25,36 @@ export class MessengerComponent implements OnInit {
   @Input() accountId: number = 0;
   @Input() templates: AccountProperty[] = [];
   @Input() standards: AccountProperty[] = [];
+  @Input() isWhatsappAdmin: boolean = false;
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();
 
   eventsSubject: Subject<void> = new Subject<void>();
+  eventsMsgSubject: Subject<void> = new Subject<void>();
 
   ngOnChanges(changes: SimpleChanges) {
   }
 
+  logout(): void {
+    this.keycloak.logout();
+  }
+
   emitEventToChild() {
+    if (!environment.production)
+      console.log("emitEventToChild()");
     this.eventsSubject.next();
   }
 
+  emitMsgEventToChild() {
+    if (!environment.production)
+      console.log("emitMsgEventToChild");
+    this.eventsMsgSubject.next();
+  }
+
   async ngOnInit() {
+    if (!environment.production)
+      console.log("async ngOnInit()");
     this.websocketService.setAccountId(this.accountId);
     this.websocketService.onWebsocketEvent(this.handleMsg.bind(this));
     this.websocketService.connect();
@@ -45,28 +62,49 @@ export class MessengerComponent implements OnInit {
   }
 
   handleMsg(message: Message) {
+    if (!environment.production) {
+      console.log("handleMsg(message: Message)");
+      console.log(message);
+    }
     if (message.type == 1) {
-      this.globalService.openError(message.text as string,"Schließen!");
+      this.globalService.openError(message.text as string, "Schließen!");
       return;
     }
     let participant = this.map.get(message.participant?.id as number) as Participant;
     if (participant) {
-      if (!participant.messages || participant.messages.size == 0)
-        this.findMessages(this.accountIdentifier, participant.id as number).then(values => {
-          participant.messages = values;
-          this.refreshParticipant(participant, message);
-        });
-      else
+      if (!participant.messages || participant.messages.size == 0) {
+        this.messageService.findMessages(this.accountIdentifier, participant.id as number).subscribe(
+          {
+            next: (v) => {
+              let messages = v as Message[];
+              let messageMap = new Map<number, Message>();
+              messages.forEach(messageItem => {
+                messageMap.set(messageItem.id as number, messageItem);
+              });
+              messageMap.set(message.id as number, message);
+              participant.messages = messageMap;
+              participant.lastMessage = Date.parse(message.created_at_format as string);
+              participant.newMessageCount = 1;
+              this.map.set(participant.id as number, participant);
+              this.emitEventToChild();
+              this.emitMsgEventToChild();
+            }
+          }
+        );
+      } else {
         this.refreshParticipant(participant, message);
+      }
     } else {
       let newParticipant = message.participant as Participant;
       if (!newParticipant.newMessageCount) newParticipant.newMessageCount = 1;
-      else newParticipant.newMessageCount = newParticipant.newMessageCount as number + 1;
+      else newParticipant.newMessageCount = (newParticipant.newMessageCount as number + 1);
       this.map.set(newParticipant.id as number, newParticipant);
     }
   }
 
   private refreshParticipant(participant: Participant, message: Message) {
+    if (!environment.production)
+      console.log("refreshParticipant(participant: Participant, message: Message)");
     participant = this.map.get(message.participant?.id as number) as Participant;
     participant.messages.set(message.id as number, message);
     if (this.currentParticipant?.id != participant.id) {
@@ -78,22 +116,36 @@ export class MessengerComponent implements OnInit {
     this.map.set(participant.id as number, participant);
     //need to copy the map object. Because otherwise ngOnChange is not triggered
     //perhaps find better way anytime
-    this.map = structuredClone(this.map);
+    this.emitEventToChild();
     if (this.currentParticipant?.id == participant.id)
       this.currentParticipant = participant;
   }
 
   /**Is called when user is selected*/
   handleParticipantChange(value: Participant) {
+    if (!environment.production)
+      console.log("handleParticipantChange(value: Participant)");
     let participant = this.map.get(value.id as number) as Participant;
     if (!participant.messages || participant.messages.size == 0)
-      this.findMessages(this.accountIdentifier, value.id as number).then(
-        values => {
-          participant.messages = values
-          participant.newMessageCount = 0;
-          this.map.set(value.id as number, participant);
-          this.currentParticipant = this.map.get(value.id as number) as Participant;
-        });
+      this.messageService.findMessages(this.accountIdentifier, value.id as number).subscribe(
+        {
+          next: (v) => {
+            let messages = v as Message[];
+            let messageMap = new Map<number, Message>();
+            messages.forEach(message => {
+              messageMap.set(message.id as number, message);
+            });
+            participant.messages = messageMap;
+            participant.newMessageCount = 0;
+            this.map.set(value.id as number, participant);
+            this.currentParticipant = this.map.get(value.id as number) as Participant;
+            /*logging all shown messages*/
+            if (!environment.production)
+              console.log(participant.messages);
+            this.emitMsgEventToChild();
+          }
+        }
+      );
     else {
       this.currentParticipant = this.map.get(value.id as number) as Participant;
       this.currentParticipant.newMessageCount = 0;
@@ -101,6 +153,8 @@ export class MessengerComponent implements OnInit {
   }
 
   async findParticipants(accountIdenifier: string) {
+    if (!environment.production)
+      console.log(" async findParticipants(accountIdenifier: string)");
     this.messageService.findParticipants(accountIdenifier).subscribe({
       next: (v) => {
         let participants = v as Participant[];
@@ -112,17 +166,6 @@ export class MessengerComponent implements OnInit {
           console.log(this.map);
       }
     });
-  }
-
-  async findMessages(accountIdentifier: string, participantId: number): Promise<Map<number, Message>> {
-    let messages = await this.messageService.findMessages(accountIdentifier, participantId).toPromise() as Message[];
-    let messageMap = new Map<number, Message>();
-    messages.forEach(message => {
-      messageMap.set(message.id as number, message);
-    });
-    if (!environment.production)
-      console.log(messageMap);
-    return messageMap;
   }
 
 }

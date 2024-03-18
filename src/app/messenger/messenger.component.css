@@ -1,3 +1,14 @@
 mat-grid-list {
   height: calc(100vh - 10px);
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.iconStyle {
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+}

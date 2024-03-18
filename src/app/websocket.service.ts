@@ -35,6 +35,8 @@ export class WebsocketService {
     console.log("Initialize WebSocket Connection");
     let ws = new SockJS(WS_ENDPOINT);
     this.stompClient = Stomp.over(ws);
+    if(environment.production)
+      this.stompClient.debug = null;
     const _this = this;
     // @ts-ignore
     _this.stompClient.connect({}, function (frame) {
