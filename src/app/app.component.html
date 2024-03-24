@@ -1,7 +1,24 @@
-<messenger *ngIf="accountIdentifier && accountId"
-           [accountIdentifier]="accountIdentifier"
-           [accountId]="accountId"
-           [templates]="templates"
-           [standards]="standards"
-           [isWhatsappAdmin]="isWhatsappAdmin" >
-</messenger>
+<mat-toolbar color="black" style="width: 100%;">
+  <button *ngIf="isWhatsappAdmin" mat-icon-button [matMenuTriggerFor]="menu" class="iconStyle">
+    <mat-icon>menu</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button (click)="addContent(1)" mat-menu-item>WhatsApp-Tool</button>
+      <button (click)="addContent(2)" mat-menu-item>Newsletter-Konfiguration</button>
+    </mat-menu>
+  </button>
+  <span class="example-spacer"></span>
+  <span>Whatsapp - Messenger</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="iconStyle" (click)="cancelSession()">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
+</mat-toolbar>
+<div #mainContent>
+  <messenger *ngIf="accountIdentifier && accountId"
+             [accountIdentifier]="accountIdentifier"
+             [accountId]="accountId"
+             [templates]="templates"
+             [standards]="standards"
+             >
+  </messenger>
+</div>

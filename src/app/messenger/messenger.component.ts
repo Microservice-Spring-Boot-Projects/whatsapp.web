@@ -5,7 +5,6 @@ import {MessageService} from "../message.service";
 import {environment} from "../../environments/environment";
 import {GlobalService} from "../global.service";
 import {Subject} from "rxjs";
-import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'messenger',
@@ -17,7 +16,6 @@ export class MessengerComponent implements OnInit {
   constructor(private websocketService: WebsocketService
     , private messageService: MessageService
     , private globalService: GlobalService
-    , private readonly keycloak: KeycloakService
   ) {
   }
 
@@ -25,7 +23,7 @@ export class MessengerComponent implements OnInit {
   @Input() accountId: number = 0;
   @Input() templates: AccountProperty[] = [];
   @Input() standards: AccountProperty[] = [];
-  @Input() isWhatsappAdmin: boolean = false;
+  //@Input() isWhatsappAdmin: boolean = false;
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();
@@ -34,10 +32,6 @@ export class MessengerComponent implements OnInit {
   eventsMsgSubject: Subject<void> = new Subject<void>();
 
   ngOnChanges(changes: SimpleChanges) {
-  }
-
-  logout(): void {
-    this.keycloak.logout();
   }
 
   emitEventToChild() {

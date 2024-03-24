@@ -1,18 +1,5 @@
 <mat-grid-list cols="4" rowHeight="fit">
-  <mat-grid-tile colspan="4" rowspan="1">
-    <mat-toolbar color="black">
-      <button *ngIf="isWhatsappAdmin" mat-icon-button class="iconStyle">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span class="example-spacer"></span>
-      <span>Whatsapp - Messenger</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button class="iconStyle" (click)="logout()">
-        <mat-icon>power_settings_new</mat-icon>
-      </button>
-    </mat-toolbar>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="15"  style="vertical-align: top;">
+  <mat-grid-tile colspan="1" rowspan="15" style="vertical-align: top;">
     <user-list [currentParticipant]="currentParticipant"
                [map]="map"
                (participantSelected)="handleParticipantChange($event)"

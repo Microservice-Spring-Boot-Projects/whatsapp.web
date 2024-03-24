@@ -20,6 +20,9 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { environment } from "../environments/environment";
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { NewsConfigComponent } from './admin/news-config/news-config.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -42,7 +45,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppComponent,
     MessengerComponent,
     CommunicationComponent,
-    UserListComponent
+    UserListComponent,
+    NewsConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -54,12 +58,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatListModule,
     FormsModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatInputModule,
     MatIconModule,
     ScrollingModule,
     KeycloakAngularModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule
   ],
   providers: [{
     provide: APP_INITIALIZER,
