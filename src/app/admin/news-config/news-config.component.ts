@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-news-config',
+  templateUrl: './news-config.component.html',
+  styleUrls: ['./news-config.component.css']
+})
+export class NewsConfigComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
