@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { NewsConfigComponent } from './admin/news-config/news-config.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProcessValuesComponent } from './admin/news-config/process-values/process-values.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -46,7 +47,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MessengerComponent,
     CommunicationComponent,
     UserListComponent,
-    NewsConfigComponent
+    NewsConfigComponent,
+    ProcessValuesComponent
   ],
   imports: [
     BrowserModule,
