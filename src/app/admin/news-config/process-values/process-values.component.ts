@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Account, AccountProperty} from "../../../pojos";
 
 @Component({
   selector: 'process-values',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcessValuesComponent implements OnInit {
 
+  @Input()
+  accountProperties: AccountProperty[];
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.accountProperties);
   }
-
 }

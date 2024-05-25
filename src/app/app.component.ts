@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
               private _ViewContainerRef: ViewContainerRef) {
   }
 
-  public async ngOnInit() {
+  public async ngOnInit(): Promise<void> {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
@@ -123,7 +123,10 @@ export class AppComponent implements OnInit {
       component.instance.standards = this.standards;
       console.log(component);
     }
-    else if(menuId == 2) component = this._ViewContainerRef.createComponent(NewsConfigComponent);
+    else if(menuId == 2) {
+      component = this._ViewContainerRef.createComponent(NewsConfigComponent);
+      component.instance.accountIdentifier = this.accountIdentifier;
+    }
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';

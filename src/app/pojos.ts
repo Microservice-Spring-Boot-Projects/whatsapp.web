@@ -56,6 +56,7 @@ export class Account {
   id?: number;
   identifier?: string;
   type?: string;
+  account_properties?: AccountProperty [];
 }
 
 export class AccountProperty {
