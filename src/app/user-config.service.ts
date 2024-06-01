@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
+import {AccountProperty} from "./pojos";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class UserConfigService {
 
   getStandards(accountIdentifier: string): Observable<any> {
     return this.http.get(environment.ACCOUNT_USER_URL + "/standards?identifier=" + accountIdentifier);
+  }
+
+  updateAccountProperty(property: AccountProperty): Observable<any>{
+    return this.http.patch(environment.ACCOUNT_USER_URL + "/updateProperty", property);
   }
 }

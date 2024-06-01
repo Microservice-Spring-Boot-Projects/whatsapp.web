@@ -5,6 +5,5 @@
   <mat-form-field appearance="legacy" style="width: 50%;">
     <input matInput placeholder="Wert" [(ngModel)]="property.property_value"/>
   </mat-form-field>
-  <mat-icon
-    style="width:8%;text-align: center;cursor: pointer;">save</mat-icon>
+  <mat-icon style="width:8%;text-align: center;cursor: pointer;" (click)="updateProperty(property)">save</mat-icon>
 </div>

@@ -14,6 +14,7 @@ import {AccountProperty, User} from "./pojos";
 import {environment} from "../environments/environment";
 import {MessengerComponent} from "./messenger/messenger.component";
 import {NewsConfigComponent} from "./admin/news-config/news-config.component";
+import {ReportComponent} from "./admin/report/report.component";
 
 @Component({
   selector: 'app-root',
@@ -127,6 +128,8 @@ export class AppComponent implements OnInit {
       component = this._ViewContainerRef.createComponent(NewsConfigComponent);
       component.instance.accountIdentifier = this.accountIdentifier;
     }
+    else if(menuId == 3)
+      component = this._ViewContainerRef.createComponent(ReportComponent);
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';

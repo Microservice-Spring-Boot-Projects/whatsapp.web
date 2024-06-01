@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Account, AccountProperty} from "../../../pojos";
+import {AccountProperty} from "../../../pojos";
+import {UserConfigService} from "../../../user-config.service";
 
 @Component({
   selector: 'process-values',
@@ -11,9 +12,18 @@ export class ProcessValuesComponent implements OnInit {
   @Input()
   accountProperties: AccountProperty[];
 
-  constructor() { }
+  constructor(private userConfigService: UserConfigService) { }
 
   ngOnInit(): void {
     console.log(this.accountProperties);
   }
+
+  updateProperty(accountProperty: AccountProperty): void {
+    this.userConfigService.updateAccountProperty(accountProperty).subscribe({
+      next: (v) => {
+
+      }
+    });
+  }
+
 }
