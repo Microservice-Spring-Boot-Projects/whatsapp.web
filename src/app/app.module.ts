@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessengerComponent } from './messenger/messenger.component';
 import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CommunicationComponent } from './messenger/communication/communication.component';
 import { UserListComponent } from './messenger/user-list/user-list.component';
 import { FormsModule } from '@angular/forms';
@@ -42,41 +42,34 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    MessengerComponent,
-    CommunicationComponent,
-    UserListComponent,
-    NewsConfigComponent,
-    ProcessValuesComponent,
-    ReportComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatGridListModule,
-    HttpClientModule,
-    MatListModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatMenuModule,
-    MatInputModule,
-    MatIconModule,
-    ScrollingModule,
-    KeycloakAngularModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatExpansionModule
-  ],
-  providers: [{
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService]
-  }],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        MessengerComponent,
+        CommunicationComponent,
+        UserListComponent,
+        NewsConfigComponent,
+        ProcessValuesComponent,
+        ReportComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatListModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatMenuModule,
+        MatInputModule,
+        MatIconModule,
+        ScrollingModule,
+        KeycloakAngularModule,
+        MatSelectModule,
+        MatSnackBarModule,
+        MatExpansionModule], providers: [{
+            provide: APP_INITIALIZER,
+            useFactory: initializeKeycloak,
+            multi: true,
+            deps: [KeycloakService]
+        }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
