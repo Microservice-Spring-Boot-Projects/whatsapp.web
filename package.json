@@ -25,7 +25,7 @@
     "@angular/router": "^14.2.0",
     "@schematics/angular": "^15.2.5",
     "@ungap/structured-clone": "^1.0.2",
-    "keycloak-angular": "^13.0.0",
+    "keycloak-angular": "^15.2.1",
     "keycloak-js": "^20.0.5",
     "net": "^1.0.2",
     "rxjs": "~7.5.0",
