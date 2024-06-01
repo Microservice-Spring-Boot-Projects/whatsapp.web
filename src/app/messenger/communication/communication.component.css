@@ -60,7 +60,7 @@
   color: white;
 }
 
-mat-form-field.mat-form-field {
+mat-form-field.mat-mdc-form-field {
   font-size: 12px;
   color: white;
 }
