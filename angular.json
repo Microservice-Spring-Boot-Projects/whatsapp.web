@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "whatsapp.web:build:production"
+              "buildTarget": "whatsapp.web:build:production"
             },
             "development": {
-              "browserTarget": "whatsapp.web:build:development"
+              "buildTarget": "whatsapp.web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "whatsapp.web:build"
+            "buildTarget": "whatsapp.web:build"
           }
         },
         "test": {
