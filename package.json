@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^18.0.1",
     "@angular/router": "^18.0.1",
     "@schematics/angular": "^18.0.2",
-    "@ungap/structured-clone": "^1.0.2",
+    "@ungap/structured-clone": "^1.2.0",
     "keycloak-angular": "^15.2.1",
     "keycloak-js": "^24.0.4",
     "net": "^1.0.2",

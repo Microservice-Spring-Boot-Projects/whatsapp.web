@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
+import SockJS from 'sockjs-client';
 import {environment} from "../environments/environment";
 import {Message} from "./pojos";
 import {Frame} from "stompjs";
@@ -11,6 +11,7 @@ export const WS_ENDPOINT = environment.WEBSOCKET_ENDPOINT;
   providedIn: 'root'
 })
 export class WebsocketService {
+
 
   topic: string = "/topic/message";
   stompClient: any;
