@@ -5,15 +5,18 @@
   </mat-toolbar>
    <ng-container *ngFor="let participant of participantList">
     <mat-list-item (click)="selectParticipant(participant);" style="cursor: pointer;height: 35px;"
-                   [class.selected]="participantId == participant.id">
-      <div matListItemTitle class="user-name">{{participant.participantName}}</div>
-      <div *ngIf="participant.newMessageCount && participant.newMessageCount > 0" style="padding: 5px;">
-        <button mat-mini-fab>{{participant.newMessageCount}}</button>
-      </div>
-      <div matListItemLine class="mobile">{{participant.participantMobile}}</div>
-      <div class="iconLine" *ngIf="participant.registrationMap.brochure && participant.registrationMap.brochure.registrationOptin">
-        &nbsp;<mat-icon>check_circle</mat-icon>
-      </div>
+                   >
+      <span matListItemTitle>
+        <div class="user-name" [class.selected]="participantId == participant.id">{{participant.participantName}}</div>
+        &nbsp;
+        <div class="mobile" [class.selected]="participantId == participant.id">{{participant.participantMobile}}</div>
+        <div *ngIf="participant.newMessageCount && participant.newMessageCount > 0" style="padding: 5px;">
+          <button mat-mini-fab>{{participant.newMessageCount}}</button>
+        </div>
+        <div class="iconLine" *ngIf="participant.registrationMap.brochure && participant.registrationMap.brochure.registrationOptin">
+          &nbsp;<mat-icon>check_circle</mat-icon>
+        </div>
+      </span>
     </mat-list-item>
     <mat-divider></mat-divider>
   </ng-container>
