@@ -39,7 +39,6 @@
 
 mat-nav-list {
   flex-grow: 1;
-  border: 3px solid green;
-  height: calc(100vh - 64px);
+  height: calc(99vh - 50px);
   overflow: auto;
 }

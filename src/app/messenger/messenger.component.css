@@ -1,5 +1,5 @@
 mat-grid-list {
-  height: calc(100vh - 10px);
+  height: calc(100vh - 50px/*Höhe der Toolbar muss abgezogen werden*/);
 }
 
 .example-spacer {
@@ -11,4 +11,8 @@ mat-grid-list {
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.mat-grid-tile {
+  height:calc(100vh - 50px)!important;
 }

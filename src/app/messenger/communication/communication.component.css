@@ -5,7 +5,7 @@
 }
 
 #communicationContent{
-  height: 90%;
+  height: calc(99vh);
 }
 
 .communicationText {
@@ -54,6 +54,7 @@
 .message-full-width {
   padding: 5px;
   width: 100%;
+
 }
 
 .white-icon {
@@ -83,7 +84,7 @@ ul {
 }
 
 .communication-viewport {
-  height: 93%;
+  height: calc(99vh - 120px);
   width: 100%;
 }
 

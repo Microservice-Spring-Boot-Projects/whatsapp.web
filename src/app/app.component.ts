@@ -15,6 +15,7 @@ import {environment} from "../environments/environment";
 import {MessengerComponent} from "./messenger/messenger.component";
 import {NewsConfigComponent} from "./admin/news-config/news-config.component";
 import {ReportComponent} from "./admin/report/report.component";
+import {HostListener} from "@angular/core";
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,9 @@ export class AppComponent implements OnInit {
   templates: AccountProperty[] = [];
   standards: AccountProperty[] = [];
 
+  screenHeight: number;
+  screenWidth: number;
+
   public isWhatsappAdmin = false;
 
   constructor(private readonly keycloak: KeycloakService,
@@ -46,6 +50,14 @@ export class AppComponent implements OnInit {
               private injector: Injector,
               private componentFactoryResolver: ComponentFactoryResolver,
               private _ViewContainerRef: ViewContainerRef) {
+    this.getScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+    console.log(this.screenHeight, this.screenWidth);
   }
 
   public async ngOnInit(): Promise<void> {
