@@ -24,7 +24,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NewsConfigComponent } from './admin/news-config/news-config.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ProcessValuesComponent } from './admin/news-config/process-values/process-values.component';
-import { ReportComponent } from './admin/report/report.component';
+import { ReportComponent } from './report/report.component';
+import { OptinUserComponent } from "./report/optin-user/optin-user.component";
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -49,7 +53,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         UserListComponent,
         NewsConfigComponent,
         ProcessValuesComponent,
-        ReportComponent
+        ReportComponent,
+        OptinUserComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
@@ -66,7 +71,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
         KeycloakAngularModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatExpansionModule], providers: [{
+        MatTabsModule,
+        MatExpansionModule,
+        MatTableModule,
+        MatButtonModule], providers: [{
             provide: APP_INITIALIZER,
             useFactory: initializeKeycloak,
             multi: true,

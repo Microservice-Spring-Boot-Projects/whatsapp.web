@@ -1,0 +1,11 @@
+.mat-tab-label {
+  color: black!important;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  color: black!important;
+}
+
+.mat-tab-header-active-label-text-color{
+  color:black!important;
+}

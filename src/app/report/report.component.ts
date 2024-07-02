@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Company} from "../pojos";
 
 @Component({
   selector: 'report',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
+  @Input() company: Company;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
 
 }

@@ -10,11 +10,11 @@ import {
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
-import {AccountProperty, User} from "./pojos";
+import {AccountProperty, Company, User} from "./pojos";
 import {environment} from "../environments/environment";
 import {MessengerComponent} from "./messenger/messenger.component";
 import {NewsConfigComponent} from "./admin/news-config/news-config.component";
-import {ReportComponent} from "./admin/report/report.component";
+import {ReportComponent} from "./report/report.component";
 import {HostListener} from "@angular/core";
 
 @Component({
@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
 
   accountIdentifier?: string;
   accountId?: number;
+  company: Company;
   templates: AccountProperty[] = [];
   standards: AccountProperty[] = [];
 
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
   screenWidth: number;
 
   public isWhatsappAdmin = false;
+  public isReportUser = false;
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService,
@@ -69,7 +71,8 @@ export class AppComponent implements OnInit {
         console.log(this.userProfile);
         console.log(roles);
       }
-      this.isWhatsappAdmin = roles.includes('admin');
+      this.isWhatsappAdmin = roles.includes('whatsapp-admin');
+      this.isReportUser = roles.includes('whatsapp-report');
       this.initUser(this.userProfile.username as string)
     } else this.initiateSession();
   }
@@ -83,6 +86,7 @@ export class AppComponent implements OnInit {
               if (account.type == 'whatsapp') {
                 this.accountIdentifier = account.identifier;
                 this.accountId = account.id;
+                this.company = company;
                 this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
                   next: (v) => {
                     this.templates = v;
@@ -140,8 +144,10 @@ export class AppComponent implements OnInit {
       component = this._ViewContainerRef.createComponent(NewsConfigComponent);
       component.instance.accountIdentifier = this.accountIdentifier;
     }
-    else if(menuId == 3)
+    else if(menuId == 3){
       component = this._ViewContainerRef.createComponent(ReportComponent);
+      component.instance.company = this.company;
+    }
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';

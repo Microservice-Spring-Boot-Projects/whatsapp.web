@@ -1,0 +1,19 @@
+<p>&nbsp;</p>
+<span *ngIf="participants" class="good">{{participants.length}} Ergebnis/se gefunden.</span>
+<p>&nbsp;</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="participantName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.participantName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="participantMobile">
+    <th mat-header-cell *matHeaderCellDef> Mobile </th>
+    <td mat-cell *matCellDef="let element"> {{element.participantMobile}} </td>
+  </ng-container>
+  <ng-container matColumnDef="registrationDate">
+    <th mat-header-cell *matHeaderCellDef> Registrierungsdatum </th>
+    <td mat-cell *matCellDef="let element"> {{element.registrationMap['brochure'].createdAt}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
