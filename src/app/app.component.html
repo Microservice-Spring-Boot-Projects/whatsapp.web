@@ -2,7 +2,8 @@
   <button *ngIf="isWhatsappAdmin || isReportUser" mat-icon-button [matMenuTriggerFor]="menu" class="iconStyle">
     <mat-icon>menu</mat-icon>
     <mat-menu #menu="matMenu">
-      <button *ngIf="isWhatsappAdmin" (click)="addContent(1)" mat-menu-item>WhatsApp-Tool</button>
+      <button *ngIf="isWhatsappAdmin || isReportUser" (click)="addContent(1)" mat-menu-item>WhatsApp-Tool</button>
+      <button *ngIf="isWhatsappNewsletter" (click)="addContent(4)" mat-menu-item>Newsletter</button>
       <button *ngIf="isWhatsappAdmin" (click)="addContent(2)" mat-menu-item>Newsletter-Konfiguration</button>
       <button *ngIf="isReportUser" (click)="addContent(3)" mat-menu-item>Berichte</button>
     </mat-menu>

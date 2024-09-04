@@ -1,11 +1,10 @@
 import {
-  ApplicationRef,
   Component,
-  ComponentFactoryResolver, ComponentRef,
-  ElementRef, EmbeddedViewRef,
-  Injector,
+  ComponentRef,
+  ElementRef,
   OnInit,
-  ViewChild, ViewContainerRef
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
@@ -43,14 +42,12 @@ export class AppComponent implements OnInit {
   screenHeight: number;
   screenWidth: number;
 
-  public isWhatsappAdmin = false;
-  public isReportUser = false;
+  public isWhatsappAdmin: boolean = false;
+  public isReportUser: boolean = false;
+  public isWhatsappNewsletter: boolean = false;
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService,
-              private appRef: ApplicationRef,
-              private injector: Injector,
-              private componentFactoryResolver: ComponentFactoryResolver,
               private _ViewContainerRef: ViewContainerRef) {
     this.getScreenSize();
   }
@@ -73,6 +70,7 @@ export class AppComponent implements OnInit {
       }
       this.isWhatsappAdmin = roles.includes('whatsapp-admin');
       this.isReportUser = roles.includes('whatsapp-report');
+      this.isWhatsappNewsletter = roles.includes('whatsapp-newsletter');
       this.initUser(this.userProfile.username as string)
     } else this.initiateSession();
   }
@@ -139,12 +137,10 @@ export class AppComponent implements OnInit {
       component.instance.templates = this.templates;
       component.instance.standards = this.standards;
       console.log(component);
-    }
-    else if(menuId == 2) {
+    } else if(menuId == 2) {
       component = this._ViewContainerRef.createComponent(NewsConfigComponent);
       component.instance.accountIdentifier = this.accountIdentifier;
-    }
-    else if(menuId == 3){
+    } else if(menuId == 3){
       component = this._ViewContainerRef.createComponent(ReportComponent);
       component.instance.company = this.company;
     }
@@ -153,7 +149,5 @@ export class AppComponent implements OnInit {
     element.contentEditable = 'false';
     this.mainContent.nativeElement.innerHTML = '';
     this.mainContent.nativeElement.appendChild(element);
-
-
   }
 }
