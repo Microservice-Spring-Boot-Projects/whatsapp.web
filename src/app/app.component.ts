@@ -144,8 +144,10 @@ export class AppComponent implements OnInit {
     } else if(menuId == 3){
       component = this._ViewContainerRef.createComponent(ReportComponent);
       component.instance.company = this.company;
-    } else if(menuId == 4)
+    } else if(menuId == 4) {
       component = this._ViewContainerRef.createComponent(BroadcastComponent);
+      component.instance.accountIdentifier = this.accountIdentifier;
+    }
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';

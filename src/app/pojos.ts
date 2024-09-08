@@ -70,3 +70,18 @@ export class User {
   username?: string;
   company?: Company[];
 }
+
+export class Template {
+  name?: string;
+  language?: string;
+  status?: string;
+  category?: string;
+  id?: string;
+  components?: Component[];
+}
+
+export class Component {
+  type?: string;
+  format?: string;
+  text?: string;
+}
