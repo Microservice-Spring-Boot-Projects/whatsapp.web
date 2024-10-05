@@ -19,7 +19,7 @@
 }
 
 .center {
-  background-color: cornsilk;
+  background-color: black;
   border-radius: 10px;
   display: inline-block;
   padding: 4px 6px;
@@ -88,6 +88,22 @@ ul {
   width: 100%;
 }
 
+.template-div {
+  background: black!important;
+  border-bottom: 1px lightgray solid;
+  float:none;
+  height: 100%;
+  width: 100%;
+}
+
+.inner-div {
+  background: black!important;
+  float: left;
+  height: 100%;
+  padding: 20px 20px;
+  width: 45%;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   overflow-y: scroll;
@@ -96,10 +112,19 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: blue;
   border-radius: 10px;
 }
 
 label, span {
   color: white;
 }
+
+body, html {
+  background-color: black;
+}
+
+.mat-form-field {
+  width: 500px!important;
+}
+
+

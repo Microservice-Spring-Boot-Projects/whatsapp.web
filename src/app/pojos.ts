@@ -85,3 +85,16 @@ export class Component {
   format?: string;
   text?: string;
 }
+
+export class TemplateRequest{
+  text1?: string = "";
+  text2?: string = "";
+  text3?: string = "";
+  text4?: string = "";
+  text5?: string = "";
+  text6?: string = "";
+  text7?: string = "";
+  headerImageUrl?: string = "";
+  templateName?: string = "";
+  accountIdentifier?: string = "";
+}
