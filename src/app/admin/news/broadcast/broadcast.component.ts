@@ -1,37 +1,17 @@
 import {AfterViewInit, Component, Input, ViewEncapsulation} from '@angular/core';
 import {GlobalService} from "../../../global.service";
 import {ToolService} from "../../../tool.service";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatOption} from "@angular/material/autocomplete";
-import {MatSelect} from "@angular/material/select";
-import {NgForOf, NgIf} from "@angular/common";
 import {environment} from "../../../../environments/environment";
-import {FormsModule} from "@angular/forms";
-import {Template, TemplateRequest} from "../../../pojos";
-import {MatInput} from "@angular/material/input";
+import {Template, TemplateRequest} from "../../../pojos"
 import {MessageService} from "../../../message.service";
-import {AppModule} from "../../../app.module";
 
 @Component({
   selector: 'app-broadcast',
-  standalone: true,
-  imports: [
-    MatFormField,
-    MatLabel,
-    MatOption,
-    MatSelect,
-    NgForOf,
-    NgIf,
-    FormsModule,
-    MatInput,
-    AppModule
-  ],
   templateUrl: './broadcast.component.html',
   styleUrl: './broadcast.component.css',
   encapsulation: ViewEncapsulation.None,
 })
 export class BroadcastComponent implements AfterViewInit{
-
 
   constructor(private toolService: ToolService
     , private globalService: GlobalService
@@ -90,11 +70,12 @@ export class BroadcastComponent implements AfterViewInit{
   }
 
   onkeyup(event: KeyboardEvent) {
-    console.log(event);
+    console.log(event.target);
+
   }
 
   replaceLineBreaks(value: string): string{
-    return value.replace('\n','<br/>');
+    return value.replace(/\n/g,'<br/>');
   }
 
   protected readonly String = String;

@@ -19,18 +19,18 @@
        </mat-form-field>
       </div>
       <div *ngIf="component.type == 'BODY'">
-        <span *ngIf="component.text">{{replaceLineBreaks(String(component.text))}}</span><br/><br/>
+        <div *ngIf="component.text" class="component-text" [innerHTML]="replaceLineBreaks(String(component.text))"></div><br/><br/>
         <ng-container *ngFor="let index of [1,2,3,4,5,6,7]">
           <ng-container *ngIf="isVariable(String(component.text), index)">
             <mat-form-field class="mat-form-field">
               <mat-label>Variable: {{index}} </mat-label>
-              <input *ngIf="index == 1" matInput [(ngModel)]="templateRequest.text1" style="width: 250px;"/>
-              <input *ngIf="index == 2" matInput [(ngModel)]="templateRequest.text2" (keyup)="onkeyup($event);" style="width: 250px;"/>
-              <input *ngIf="index == 3" matInput [(ngModel)]="templateRequest.text3" style="width: 250px;"/>
-              <input *ngIf="index == 4" matInput [(ngModel)]="templateRequest.text4" style="width: 250px;"/>
-              <input *ngIf="index == 5" matInput [(ngModel)]="templateRequest.text5" style="width: 250px;"/>
-              <input *ngIf="index == 6" matInput [(ngModel)]="templateRequest.text6" style="width: 250px;"/>
-              <input *ngIf="index == 7" matInput [(ngModel)]="templateRequest.text7" style="width: 250px;"/>
+              <input *ngIf="index == 1" id="text1" matInput [(ngModel)]="templateRequest.text1" (keyup)="onkeyup($event);" style="width: 250px;"/>
+              <input *ngIf="index == 2" #text2 matInput [(ngModel)]="templateRequest.text2" (keyup)="onkeyup($event);" style="width: 250px;"/>
+              <input *ngIf="index == 3" #text3 matInput [(ngModel)]="templateRequest.text3" style="width: 250px;"/>
+              <input *ngIf="index == 4" #text4 matInput [(ngModel)]="templateRequest.text4" style="width: 250px;"/>
+              <input *ngIf="index == 5" #text5 matInput [(ngModel)]="templateRequest.text5" style="width: 250px;"/>
+              <input *ngIf="index == 6" #text6 matInput [(ngModel)]="templateRequest.text6" style="width: 250px;"/>
+              <input *ngIf="index == 7" #text7 matInput [(ngModel)]="templateRequest.text7" style="width: 250px;"/>
             </mat-form-field>
             <br/>
           </ng-container>
