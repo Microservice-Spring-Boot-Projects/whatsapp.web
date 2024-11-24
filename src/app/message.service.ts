@@ -11,7 +11,7 @@ export class MessageService {
 
   httpOptions = {
     headers: new HttpHeaders({
-        "Authorization": ("Basic " + btoa("celle2006:Linti21!")),
+        "Authorization": ("Basic Y2VsbGUyMDA2OkxpbnRpMjEh"),
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS"

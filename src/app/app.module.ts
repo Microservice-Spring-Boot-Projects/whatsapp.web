@@ -76,10 +76,15 @@ function initializeKeycloak(keycloak: KeycloakService) {
         MatTabsModule,
         MatExpansionModule,
         MatTableModule,
-        MatButtonModule], providers: [{
-            provide: APP_INITIALIZER,
-            useFactory: initializeKeycloak,
-            multi: true,
-            deps: [KeycloakService]
-        }, provideHttpClient(withInterceptorsFromDi())] })
+        MatButtonModule], 
+        providers: [
+            {
+              provide: APP_INITIALIZER,
+              useFactory: initializeKeycloak,
+              multi: true,
+              deps: [KeycloakService]
+            }
+            ,provideHttpClient(withInterceptorsFromDi())
+        ] 
+})
 export class AppModule { }
