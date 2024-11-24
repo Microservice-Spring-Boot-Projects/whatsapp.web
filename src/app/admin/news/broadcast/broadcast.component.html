@@ -1,1 +1,48 @@
-<p>broadcast works!</p>
+<div style="float:none;border-bottom: 1px lightgray solid;">
+  <mat-form-field appearance="outline" class="message-full-width">
+    <mat-label>Template auswählen</mat-label>
+    <mat-select [(ngModel)]="currentTemplate" (selectionChange)="onTemplateSelect()">
+      <mat-option [value]=""></mat-option>
+      <mat-option *ngFor="let template of templates" [value]="template">{{template.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div *ngIf="currentTemplate" class="template-div">
+  <div class="inner-div">
+    <label >Name: </label><span>{{currentTemplate.name}}</span><br/>
+    <label >Status: </label><span>{{currentTemplate.status}}</span>
+    <ng-container *ngFor="let component of currentTemplate.components">
+      <div *ngIf="component.type == 'HEADER' && component.format == 'IMAGE'" style="margin-top: 6px;">
+       <mat-form-field class="mat-form-field">
+         <mat-label>Header-Bild-URL</mat-label>
+         <input matInput [(ngModel)]="templateRequest.headerImageUrl"/>
+       </mat-form-field>
+      </div>
+      <div *ngIf="component.type == 'BODY'">
+        <div *ngIf="component.text" class="component-text" [innerHTML]="replaceLineBreaks(String(component.text))"></div><br/><br/>
+        <ng-container *ngFor="let index of [1,2,3,4,5,6,7]">
+          <ng-container *ngIf="isVariable(String(component.text), index)">
+            <mat-form-field class="mat-form-field">
+              <mat-label>Variable: {{index}} </mat-label>
+              <input *ngIf="index == 1" id="text1" matInput [(ngModel)]="templateRequest.text1" (keyup)="onkeyup($event);" style="width: 250px;"/>
+              <input *ngIf="index == 2" #text2 matInput [(ngModel)]="templateRequest.text2" (keyup)="onkeyup($event);" style="width: 250px;"/>
+              <input *ngIf="index == 3" #text3 matInput [(ngModel)]="templateRequest.text3" style="width: 250px;"/>
+              <input *ngIf="index == 4" #text4 matInput [(ngModel)]="templateRequest.text4" style="width: 250px;"/>
+              <input *ngIf="index == 5" #text5 matInput [(ngModel)]="templateRequest.text5" style="width: 250px;"/>
+              <input *ngIf="index == 6" #text6 matInput [(ngModel)]="templateRequest.text6" style="width: 250px;"/>
+              <input *ngIf="index == 7" #text7 matInput [(ngModel)]="templateRequest.text7" style="width: 250px;"/>
+            </mat-form-field>
+            <br/>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+    <button mat-raised-button color="primary"(click)="sendTemplate()" style="cursor: pointer;">
+      Template senden
+    </button>
+  </div>
+  <div class="inner-div">
+
+    <img height="200px" src="{{templateRequest.headerImageUrl}}"/>
+  </div>
+</div>

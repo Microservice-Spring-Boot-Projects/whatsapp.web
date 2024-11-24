@@ -70,3 +70,31 @@ export class User {
   username?: string;
   company?: Company[];
 }
+
+export class Template {
+  name?: string;
+  language?: string;
+  status?: string;
+  category?: string;
+  id?: string;
+  components?: Component[];
+}
+
+export class Component {
+  type?: string;
+  format?: string;
+  text?: string;
+}
+
+export class TemplateRequest{
+  text1?: string = "";
+  text2?: string = "";
+  text3?: string = "";
+  text4?: string = "";
+  text5?: string = "";
+  text6?: string = "";
+  text7?: string = "";
+  headerImageUrl?: string = "";
+  templateName?: string = "";
+  accountIdentifier?: string = "";
+}

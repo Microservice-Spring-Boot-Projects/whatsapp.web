@@ -15,6 +15,7 @@ import {MessengerComponent} from "./messenger/messenger.component";
 import {NewsConfigComponent} from "./admin/news-config/news-config.component";
 import {ReportComponent} from "./report/report.component";
 import {HostListener} from "@angular/core";
+import {BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 
 @Component({
   selector: 'app-root',
@@ -143,6 +144,9 @@ export class AppComponent implements OnInit {
     } else if(menuId == 3){
       component = this._ViewContainerRef.createComponent(ReportComponent);
       component.instance.company = this.company;
+    } else if(menuId == 4) {
+      component = this._ViewContainerRef.createComponent(BroadcastComponent);
+      component.instance.accountIdentifier = this.accountIdentifier;
     }
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;

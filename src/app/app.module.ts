@@ -29,6 +29,7 @@ import { OptinUserComponent } from "./report/optin-user/optin-user.component";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -54,7 +55,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         NewsConfigComponent,
         ProcessValuesComponent,
         ReportComponent,
-        OptinUserComponent
+        OptinUserComponent,
+        BroadcastComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
@@ -74,10 +76,15 @@ function initializeKeycloak(keycloak: KeycloakService) {
         MatTabsModule,
         MatExpansionModule,
         MatTableModule,
-        MatButtonModule], providers: [{
-            provide: APP_INITIALIZER,
-            useFactory: initializeKeycloak,
-            multi: true,
-            deps: [KeycloakService]
-        }, provideHttpClient(withInterceptorsFromDi())] })
+        MatButtonModule], 
+        providers: [
+            {
+              provide: APP_INITIALIZER,
+              useFactory: initializeKeycloak,
+              multi: true,
+              deps: [KeycloakService]
+            }
+            ,provideHttpClient(withInterceptorsFromDi())
+        ] 
+})
 export class AppModule { }

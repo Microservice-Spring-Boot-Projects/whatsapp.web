@@ -1,10 +1,9 @@
-import {Component, Input,  SimpleChanges, ViewChild, NgZone, AfterViewInit} from '@angular/core';
+import {Component, Input,  SimpleChanges, ViewChild, AfterViewInit} from '@angular/core';
 import {MessageService} from "../../message.service";
 import {AccountProperty, Media, Message, Participant} from "../../pojos";
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {GlobalService} from "../../global.service";
-import {UserConfigService} from "../../user-config.service";
 import {environment} from "../../../environments/environment";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 import {Observable, Subscription} from "rxjs";
@@ -19,8 +18,7 @@ export class CommunicationComponent implements AfterViewInit {
   constructor(private messageService: MessageService
     ,private _sanitizer: DomSanitizer
     ,private globalService: GlobalService
-    ,private userConfigService: UserConfigService
-    ,private _ngZone: NgZone) {
+    ) {
   }
 
   @Input() accountIdentifier: string = "";
@@ -37,10 +35,6 @@ export class CommunicationComponent implements AfterViewInit {
   private cdkVirtualScrollViewport: CdkVirtualScrollViewport;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
-  /*triggerResize() {
-    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
-  }*/
 
   itemSize: number = 25;
   messageText?: string;
@@ -65,8 +59,6 @@ export class CommunicationComponent implements AfterViewInit {
       return 0;
   }
 
-
-
   public imagePath(media: Media): SafeUrl {
     return this._sanitizer.bypassSecurityTrustUrl('data:' + media.contentType + ';base64,' + media.content);
   }
@@ -88,9 +80,6 @@ export class CommunicationComponent implements AfterViewInit {
         bottom: 0,
         behavior: 'auto',
       });
-  }
-
-  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
