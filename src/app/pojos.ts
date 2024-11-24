@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Timestamp } from "rxjs";
+
 export interface Serializable {
 }
 
@@ -69,6 +71,21 @@ export class AccountProperty {
 export class User {
   username?: string;
   company?: Company[];
+}
+
+export class SalesOrder {
+  id?: number;
+  companyId?: number;
+  accountId?: number;
+  participant?: Participant;
+  salesTimestamp?: Date;
+  positions?: SalesOrderPosition[];
+}
+
+export class SalesOrderPosition {
+  id?: number;
+  brand?: string;
+  variantKey?: string;
 }
 
 export class Template {

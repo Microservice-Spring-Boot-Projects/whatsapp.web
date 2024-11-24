@@ -16,6 +16,7 @@ import {NewsConfigComponent} from "./admin/news-config/news-config.component";
 import {ReportComponent} from "./report/report.component";
 import {HostListener} from "@angular/core";
 import {BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
+import { SalesComponent } from './sales/sales.component';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit {
   public isWhatsappAdmin: boolean = false;
   public isReportUser: boolean = false;
   public isWhatsappNewsletter: boolean = false;
+  public isWhatsappSales: boolean = false;
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService,
@@ -72,6 +74,7 @@ export class AppComponent implements OnInit {
       this.isWhatsappAdmin = roles.includes('whatsapp-admin');
       this.isReportUser = roles.includes('whatsapp-report');
       this.isWhatsappNewsletter = roles.includes('whatsapp-newsletter');
+      this.isWhatsappSales = roles.includes('whatsapp-sales');
       this.initUser(this.userProfile.username as string)
     } else this.initiateSession();
   }
@@ -147,7 +150,8 @@ export class AppComponent implements OnInit {
     } else if(menuId == 4) {
       component = this._ViewContainerRef.createComponent(BroadcastComponent);
       component.instance.accountIdentifier = this.accountIdentifier;
-    }
+    } else if(menuId == 5) 
+      component = this._ViewContainerRef.createComponent(SalesComponent);
     // @ts-ignore
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';

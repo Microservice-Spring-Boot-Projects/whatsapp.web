@@ -3,6 +3,7 @@
     <mat-icon>menu</mat-icon>
     <mat-menu #menu="matMenu">
       <button *ngIf="isWhatsappAdmin || isReportUser" (click)="addContent(1)" mat-menu-item>WhatsApp-Tool</button>
+      <button *ngIf="isWhatsappSales" (click)="addContent(5)" mat-menu-item>Verkäufe</button>
       <button *ngIf="isWhatsappNewsletter" (click)="addContent(4)" mat-menu-item>Newsletter</button>
       <button *ngIf="isWhatsappAdmin" (click)="addContent(2)" mat-menu-item>Newsletter-Konfiguration</button>
       <button *ngIf="isReportUser" (click)="addContent(3)" mat-menu-item>Berichte</button>
