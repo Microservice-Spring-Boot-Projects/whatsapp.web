@@ -42,6 +42,8 @@ export class Participant extends AuditEntity{
   companyName?: string;
   participantName?: string;
   participantMobile?: string;
+  lastName?:string;
+  firstName?:string;
   messages = new Map<number, Message>();
   newMessageCount?: number = 0;
   lastMessage?: number;

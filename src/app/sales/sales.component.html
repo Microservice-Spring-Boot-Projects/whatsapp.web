@@ -1,1 +1,70 @@
-<p>sales works!</p>
+<mat-nav-list>
+    <mat-toolbar style="margin-top:-7px;height: 50px;">
+        <label style="font-size: medium;top:0;">Suche:</label>&nbsp;
+        <input [(ngModel)]="searchTxt" (keyup.enter)="searchUser()" style="height: 30px;width: 100%;"/>
+        <button mat-fab color="primary"  style="cursor: pointer;">
+            <mat-icon (click)="searchUser()" style="padding: 5px;cursor: pointer;color: white;">search</mat-icon>
+        </button>
+    </mat-toolbar>
+    <ng-container *ngFor="let participant of participantList">
+        <ng-container *ngIf="!currentParticipant">
+            <mat-list-item style="cursor: pointer;height: 30px;background-color: gray;" (click)="selectParticipant(participant);">
+                <span matListItemTitle>
+                <div class="user-name">{{participant.participantName}}</div>
+                &nbsp;
+                <div class="mobile">{{participant.participantMobile}}</div>
+                </span>
+            </mat-list-item>
+        </ng-container>
+    </ng-container>
+</mat-nav-list>
+<ng-container *ngIf="currentParticipant">
+    <div style="background-color: gray;width: 100%;margin-top:-7px;padding:10px;">
+        <mat-form-field class="message-full-width" appearance="outline">
+            <input type="text" matInput [(ngModel)]="currentParticipant.firstName" placeholder="Vorname" autofocus/>
+        </mat-form-field>
+        <mat-form-field class="message-full-width" appearance="outline">
+            <input type="text" matInput [(ngModel)]="currentParticipant.lastName" placeholder="Nachname"/>
+        </mat-form-field>
+        <mat-form-field class="message-full-width" appearance="outline">
+            <input type="text" matInput value="{{currentParticipant.participantName}}" disabled="true"/>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary"(click)="saveParticipant()" style="cursor: pointer;">
+            Speichern <mat-icon style="color: white;">save</mat-icon>
+        </button>
+    </div>
+    <br/>
+    <br/>
+    <div style="background-color: gray;width: 100%;padding:10px;" >
+        <button mat-raised-button color="primary"(click)="addSalesOrder()" style="cursor: pointer; ">
+            Neuer Kauf <mat-icon style="color: white;">shopping_cart</mat-icon>
+        </button>
+        <br/><br/>
+        <ng-container *ngIf="currentSalesOrder && currentSalesOrder.positions">
+            <ng-container *ngFor="let salesOrderPos of currentSalesOrder.positions">
+                <mat-form-field appearance="outline" class="message-full-width">
+                    <mat-label>Marke</mat-label>
+                    <mat-select [(ngModel)]="salesOrderPos.brand">
+                        <mat-option [value]=""></mat-option>
+                        <mat-option *ngFor="let brand of brands" value="{{brand}}">{{brand}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="message-full-width">
+                    <mat-label>Größe</mat-label>
+                    <mat-select [(ngModel)]="salesOrderPos.variantKey">
+                        <mat-option [value]=""></mat-option>
+                        <mat-option *ngFor="let size of sizes" value="{{size}}">{{size}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-fab color="primary"(click)="addSalesOrder()" style="cursor: pointer; ">
+                    <mat-icon style="color: white;">add</mat-icon>
+                </button>
+                <br/>
+            </ng-container>
+            <button mat-raised-button color="primary" (click)="saveSalesOrder()" style="cursor: pointer;">
+                Speichern <mat-icon style="color: white;">save</mat-icon>
+            </button>
+        </ng-container>
+    </div>
+</ng-container>

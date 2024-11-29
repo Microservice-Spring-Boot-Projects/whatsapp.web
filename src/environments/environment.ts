@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   MESSAGE_URL: "https://localhost:8445/whatsapp/messages",
   REPORT_URL: "https://localhost:8445/whatsapp/report",
+  SALES_URL: "https://localhost:8445/whatsapp/sales",
   TOOL_URL: "https://localhost:8445/whatsapp/tools",
   USER_URL: "https://localhost:8447/user/user",
   ACCOUNT_USER_URL: "https://localhost:8447/user/account",
