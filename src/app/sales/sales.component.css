@@ -5,6 +5,12 @@
     width: 50%;
 }
 
+.sales-date {
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+}
+
 .mobile {
     font-size: small;
     float:left;

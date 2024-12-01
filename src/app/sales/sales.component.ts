@@ -3,6 +3,7 @@ import { Company, Participant, SalesOrder, SalesOrderPosition } from '../pojos';
 import { SalesService } from '../sales.service';
 import { environment } from 'src/environments/environment';
 import { UserConfigService } from '../user-config.service';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'sales',
@@ -21,9 +22,11 @@ export class SalesComponent implements OnInit{
   searchTxt: string = "";
   participantList: Participant[];
   currentSalesOrder: SalesOrder;
+  particiapantsSalesOrders: SalesOrder[];
 
   constructor(private salesService: SalesService
     ,private userConfigService: UserConfigService
+    ,private globalService: GlobalService
   ) {
   }
 
@@ -61,13 +64,16 @@ export class SalesComponent implements OnInit{
     this.currentParticipant = participant;
     if(!environment.production)
       console.log(this.currentParticipant);
+    this.listSalesOrders();
   }
 
   saveParticipant() {
     if(this.currentParticipant)
       this.salesService.saveParticipant(this.currentParticipant).subscribe({
         next: (v) => {
-          console.log(v);
+          if(!environment.production)
+            console.log(v);
+          this.globalService.openStatus('Kunde gespeichert','Schliessen');
         },
         error: (v) => {
           console.log(v);
@@ -88,13 +94,24 @@ export class SalesComponent implements OnInit{
       let sop = new SalesOrderPosition();
       this.currentSalesOrder.positions?.push(sop);
     }
+    console.log(this.currentSalesOrder);
   }
 
-  saveSalesOrder() {
+  listSalesOrders(): void {
+    this.salesService.listSalesOrders(this.currentParticipant?.id as number).subscribe({
+      next: (v) => {
+        this.particiapantsSalesOrders = v;
+      }
+    });
+  }
+
+  saveSalesOrder(): void {
     if(this.currentSalesOrder) {
       this.salesService.saveSalesOrder(this.currentSalesOrder).subscribe({
           next: (v) => {
-            console.log(v);
+            if(!environment.production)
+              console.log(v);
+            this.globalService.openStatus('Kauf gespeichert','Schliessen');
           },
           error: (v) => {
             console.log(v);
@@ -103,6 +120,5 @@ export class SalesComponent implements OnInit{
       );
     }
   }
-
 
 }

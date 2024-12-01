@@ -33,4 +33,8 @@ export class SalesService {
     return this.http.post(environment.SALES_URL, salesOrder, this.httpOptions);
   }
 
+  listSalesOrders(participantId: number): Observable<any> {
+    return this.http.get(environment.SALES_URL + "/list?participantId=" + participantId, this.httpOptions);
+  }
+
 }

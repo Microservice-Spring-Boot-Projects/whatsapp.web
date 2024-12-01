@@ -29,4 +29,18 @@ export class GlobalService {
     return "undefined error message"
   }
 
+  openStatus(message: string, action: string, durationMillis?: number) {
+    if (message.length > 3000) message = message.substring(0, 3000);
+    if (durationMillis)
+      this._snackBar.open(message, action, {
+        duration: durationMillis,
+        panelClass: ['blue-snackbar']
+      });
+    else
+      this._snackBar.open(message, action, {
+        duration: 3500,
+        panelClass: ['blue-snackbar']
+      });
+  }
+
 }

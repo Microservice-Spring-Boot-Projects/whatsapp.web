@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Participant} from "../../pojos";
 import {Observable, Subscription} from "rxjs";
 import {environment} from "../../../environments/environment";
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'user-list',
@@ -22,6 +23,9 @@ export class UserListComponent implements OnInit {
   participantList: Participant[];
   participantId: number;
   searchTxt: string = "";
+
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger: MatMenuTrigger;
+  menuTopLeftPosition = { x: '0', y: '0' }
 
   @Output()
   participantSelected: EventEmitter<Participant> = new EventEmitter;
@@ -71,4 +75,12 @@ export class UserListComponent implements OnInit {
         }
       );
   }
+
+  onRightClick(event: any) {
+    event.preventDefault();
+    this.menuTopLeftPosition.x = event.clientX + 'px';
+    this.menuTopLeftPosition.y = event.clientY + 'px';
+    this.matMenuTrigger.openMenu();
+  }
+
 }
