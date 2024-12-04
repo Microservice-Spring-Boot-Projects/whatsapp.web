@@ -4,7 +4,7 @@
     <input [(ngModel)]="searchTxt" (keyup)="searchUser()" style="height: 30px;width: 100%;"/>
   </mat-toolbar>
    <ng-container *ngFor="let participant of participantList">
-    <mat-list-item (click)="selectParticipant(participant);" (contextmenu)="onRightClick($event)" style="cursor: pointer;height: 30px;">
+    <mat-list-item (click)="selectParticipant(participant);" (contextmenu)="onRightClick($event, participant)" style="cursor: pointer;height: 30px;">
       <span matListItemTitle>
         <div class="user-name" [class.selected]="participantId == participant.id">{{participant.participantName}}</div>
         &nbsp;
@@ -27,7 +27,7 @@
 
 <!-- standard material menu -->
 <mat-menu #rightMenu="matMenu">
-    <ng-template matMenuContent let-item="item" *transloco="let t">
-        <button mat-menu-item>Verkäufe</button>
+    <ng-template matMenuContent let-item="item">
+        <button mat-menu-item (click)="onContextMenu()">Verkäufe</button>
     </ng-template>
 </mat-menu>

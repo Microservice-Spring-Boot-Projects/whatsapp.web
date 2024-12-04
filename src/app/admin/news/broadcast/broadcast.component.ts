@@ -4,6 +4,7 @@ import {ToolService} from "../../../tool.service";
 import {environment} from "../../../../environments/environment";
 import {Template, TemplateRequest} from "../../../pojos"
 import {MessageService} from "../../../message.service";
+import { UploadService } from 'src/app/upload.service';
 
 @Component({
   selector: 'app-broadcast',
@@ -15,14 +16,16 @@ export class BroadcastComponent implements AfterViewInit{
 
   constructor(private toolService: ToolService
     , private globalService: GlobalService
-    , private messageService: MessageService) {
+    , private messageService: MessageService
+    , private uploadService: UploadService) {
   }
 
-  @Input()
-  accountIdentifier: string;
+  @Input() accountIdentifier: string;
   templates: Template[];
   currentTemplate: Template;
   templateRequest: TemplateRequest;
+  uploadfile: any;
+  filename: string = '';
 
 
   ngAfterViewInit(): void {
@@ -59,9 +62,27 @@ export class BroadcastComponent implements AfterViewInit{
     if(!environment.production)
       console.log(this.templateRequest);
     this.templateRequest.templateName = this.currentTemplate.name;
-    this.messageService.postTemplate(this.templateRequest).subscribe({
-      next: (v) => {
+    if(this.uploadfile) {
+      this.sendTemplateAndUpload();
+      return;
+    } else {
+      this.messageService.postTemplate(this.templateRequest).subscribe({
+        next: (v) => {
+          this.globalService.openStatus("Templage wurde verschickt.","Schliessen");
+          console.log(v);
+        },
+        error: (v) => {
+          this.globalService.openError(v.error,"Schließen");
+        }
+      });
+    }
+  }
+
+  sendTemplateAndUpload(): void {
+    this.uploadService.upload(this.uploadfile,this.templateRequest).subscribe({
+      next:(v) => {
         console.log(v);
+        this.globalService.openStatus("Templage wurde verschickt.","Schliessen");
       },
       error: (v) => {
         this.globalService.openError(v.error,"Schließen");
@@ -71,11 +92,17 @@ export class BroadcastComponent implements AfterViewInit{
 
   onkeyup(event: KeyboardEvent) {
     console.log(event.target);
-
   }
 
   replaceLineBreaks(value: string): string{
     return value.replace(/\n/g,'<br/>');
+  }
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+    this.uploadfile = inputNode.files[0];
+    this.filename = this.uploadfile.name;
+    console.log(this.uploadfile.name);
   }
 
   protected readonly String = String;

@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Participant} from "../../pojos";
+import {Component, ComponentRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import {Company, Participant} from "../../pojos";
 import {Observable, Subscription} from "rxjs";
 import {environment} from "../../../environments/environment";
 import { MatMenuTrigger } from '@angular/material/menu';
+import { SalesComponent } from 'src/app/sales/sales.component';
 
 @Component({
   selector: 'user-list',
@@ -11,18 +12,26 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class UserListComponent implements OnInit {
 
-  constructor() {
+  constructor(private _ViewContainerRef: ViewContainerRef) {
   }
+
+  //@ViewChild('mainContent') mainContent: ElementRef;
 
   private eventsSubscription: Subscription;
 
   @Input() currentParticipant?: Participant;
   @Input() map?: Map<number, Participant>;
   @Input() events: Observable<void>;
+  @Input() isWhatsappSales: boolean = false;
+  @Input() accountIdentifier: string = "";
+  @Input() accountId: number = 0;
+  @Input() company: Company;
+  @Input() mainContent: HTMLDivElement;
 
   participantList: Participant[];
   participantId: number;
   searchTxt: string = "";
+  contextParticipant: Participant;
 
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger: MatMenuTrigger;
   menuTopLeftPosition = { x: '0', y: '0' }
@@ -76,11 +85,30 @@ export class UserListComponent implements OnInit {
       );
   }
 
-  onRightClick(event: any) {
+  onRightClick(event: any,  participant: Participant) {
+    if(!this.isWhatsappSales) return;
+    this.contextParticipant = participant;
     event.preventDefault();
     this.menuTopLeftPosition.x = event.clientX + 'px';
     this.menuTopLeftPosition.y = event.clientY + 'px';
     this.matMenuTrigger.openMenu();
   }
+
+  onContextMenu(){
+    this.addContent();
+  }
+
+  addContent() {
+    let component: ComponentRef <any>;
+    component = this._ViewContainerRef.createComponent(SalesComponent);
+    component.instance.company = this.company;
+    component.instance.accountId = this.accountId;
+    component.instance.accountIdentifier = this.accountIdentifier;
+    component.instance.currentParticipant = this.contextParticipant;
+    const element: HTMLElement = component.location.nativeElement;
+    element.contentEditable = 'false';
+    this.mainContent.innerHTML = '';
+    this.mainContent.append(element);
+  }  
 
 }

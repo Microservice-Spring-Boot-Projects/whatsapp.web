@@ -1,11 +1,4 @@
-import {
-  Component,
-  ComponentRef,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import {Component,  ComponentRef,  ElementRef,  OnInit,  ViewChild,  ViewContainerRef} from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
@@ -140,7 +133,11 @@ export class AppComponent implements OnInit {
       component.instance.accountId = this.accountId;
       component.instance.templates = this.templates;
       component.instance.standards = this.standards;
-      console.log(component);
+      component.instance.isWhatsappNewsletter = this.isWhatsappNewsletter;
+      component.instance.isWhatsappSales = this.isWhatsappSales;
+      component.instance.mainContent = this.mainContent;
+      if(!environment.production)
+        console.log(component);
     } else if(menuId == 2) {
       component = this._ViewContainerRef.createComponent(NewsConfigComponent);
       component.instance.accountIdentifier = this.accountIdentifier;

@@ -45,6 +45,8 @@ export class SalesComponent implements OnInit{
           console.log(this.sizes);
       }
     });
+    if(this.currentParticipant)
+      this.listSalesOrders();
   }
 
   searchUser(): void {

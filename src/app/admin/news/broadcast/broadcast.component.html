@@ -17,7 +17,14 @@
          <mat-label>Header-Bild-URL</mat-label>
          <input matInput [(ngModel)]="templateRequest.headerImageUrl"/>
        </mat-form-field>
+       <br/>
+       <div>
+          <button type="button" mat-raised-button (click)="fileInput.click()">Datei auswählen:</button>
+          <input hidden (change)="onFileSelected()" #fileInput type="file" id="file"> 
+          <span style="margin-left: 5px;">{{filename}}</span>
+       </div>
       </div>
+      <br/>
       <div *ngIf="component.type == 'BODY'">
         <div *ngIf="component.text" class="component-text" [innerHTML]="replaceLineBreaks(String(component.text))"></div><br/><br/>
         <ng-container *ngFor="let index of [1,2,3,4,5,6,7]">
