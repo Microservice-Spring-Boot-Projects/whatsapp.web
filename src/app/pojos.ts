@@ -48,6 +48,7 @@ export class Participant extends AuditEntity{
   newMessageCount?: number = 0;
   lastMessage?: number;
   registrationMap?: any;
+  participantDateofbirth?: Date;
 }
 
 export class Company{

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { UserConfigService } from '../user-config.service';
 import { GlobalService } from '../global.service';
 
+
 @Component({
   selector: 'sales',
   templateUrl: './sales.component.html',
@@ -70,7 +71,9 @@ export class SalesComponent implements OnInit{
   }
 
   saveParticipant() {
-    if(this.currentParticipant)
+    if(this.currentParticipant){  
+      if(!environment.production)
+        console.log(this.currentParticipant);
       this.salesService.saveParticipant(this.currentParticipant).subscribe({
         next: (v) => {
           if(!environment.production)
@@ -81,6 +84,17 @@ export class SalesComponent implements OnInit{
           console.log(v);
         }
       });
+    }
+  }
+
+  onModelChange(event: any){
+    console.log(event);
+    if(this.currentParticipant && event && event.length == 10){
+      console.log("set");
+      const [day, month, year] = event.split('.');
+      let dateofbirth = new Date(+year, +month - 1, +day, 2);
+      this.currentParticipant.participantDateofbirth = dateofbirth;
+    }
   }
 
   addSalesOrder() {
