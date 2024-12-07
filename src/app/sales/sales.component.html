@@ -35,7 +35,6 @@
             [ngModel]="currentParticipant.participantDateofbirth | date:'dd.MM.yyyy'"
             [value]="currentParticipant.participantDateofbirth | date:'dd.MM.yyyy'"  
             placeholder="dd.MM.yyyy" (ngModelChange)="onModelChange($event)"/>
-            
         </mat-form-field>
         <br/>
         <button mat-raised-button color="primary"(click)="saveParticipant()" style="cursor: pointer;">

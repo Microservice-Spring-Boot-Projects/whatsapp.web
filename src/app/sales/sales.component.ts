@@ -88,9 +88,7 @@ export class SalesComponent implements OnInit{
   }
 
   onModelChange(event: any){
-    console.log(event);
     if(this.currentParticipant && event && event.length == 10){
-      console.log("set");
       const [day, month, year] = event.split('.');
       let dateofbirth = new Date(+year, +month - 1, +day, 2);
       this.currentParticipant.participantDateofbirth = dateofbirth;

@@ -26,7 +26,6 @@ export class UserListComponent implements OnInit {
   @Input() accountIdentifier: string = "";
   @Input() accountId: number = 0;
   @Input() company: Company;
-  @Input() mainContent: HTMLDivElement;
 
   participantList: Participant[];
   participantId: number;
@@ -107,8 +106,11 @@ export class UserListComponent implements OnInit {
     component.instance.currentParticipant = this.contextParticipant;
     const element: HTMLElement = component.location.nativeElement;
     element.contentEditable = 'false';
-    this.mainContent.innerHTML = '';
-    this.mainContent.append(element);
+    let contentMain = document.getElementById('mainContent');
+    if(contentMain){
+      contentMain.innerHTML = '';
+      contentMain.append(element);
+    }
   }  
 
 }

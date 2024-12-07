@@ -16,7 +16,7 @@
     <mat-icon>power_settings_new</mat-icon>
   </button>
 </mat-toolbar>
-<div #mainContent>
+<div id="mainContent" #mainContent>
   <messenger *ngIf="accountIdentifier && accountId"
              [accountIdentifier]="accountIdentifier"
              [accountId]="accountId"
@@ -24,7 +24,6 @@
              [standards]="standards"
              [isWhatsappSales]="isWhatsappSales"
              [company]="company"
-             [mainContent]="mainContent"
              >
   </messenger>
 </div>
