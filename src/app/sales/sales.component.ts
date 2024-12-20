@@ -100,6 +100,8 @@ export class SalesComponent implements OnInit{
       if(!this.currentSalesOrder) {
         let salesOrder: SalesOrder = new SalesOrder();
         salesOrder.accountId = this.accountId;
+        console.log(this.accountId);
+        console.log(this.company.id);
         salesOrder.companyId = this.company.id;
         salesOrder.participant = this.currentParticipant;
         salesOrder.positions = [];

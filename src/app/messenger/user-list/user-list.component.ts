@@ -23,6 +23,7 @@ export class UserListComponent implements OnInit {
   @Input() map?: Map<number, Participant>;
   @Input() events: Observable<void>;
   @Input() isWhatsappSales: boolean = false;
+  @Input() salesModuleActive: boolean = false;
   @Input() accountIdentifier: string = "";
   @Input() accountId: number = 0;
   @Input() company: Company;
@@ -85,7 +86,7 @@ export class UserListComponent implements OnInit {
   }
 
   onRightClick(event: any,  participant: Participant) {
-    if(!this.isWhatsappSales) return;
+    if(!this.isWhatsappSales || !this.salesModuleActive) return;
     this.contextParticipant = participant;
     event.preventDefault();
     this.menuTopLeftPosition.x = event.clientX + 'px';

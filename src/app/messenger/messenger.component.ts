@@ -25,6 +25,7 @@ export class MessengerComponent implements OnInit {
   @Input() standards: AccountProperty[] = [];
   @Input() isWhatsappSales: boolean = false;
   @Input() company: Company;
+  @Input() salesModuleActive: boolean = false;
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();

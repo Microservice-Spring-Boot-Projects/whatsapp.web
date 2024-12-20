@@ -102,7 +102,7 @@ export class BroadcastComponent implements AfterViewInit{
     const inputNode: any = document.querySelector('#file');
     this.uploadfile = inputNode.files[0];
     this.filename = this.uploadfile.name;
-    console.log(this.uploadfile.name);
+    //console.log(this.uploadfile.name);
   }
 
   protected readonly String = String;

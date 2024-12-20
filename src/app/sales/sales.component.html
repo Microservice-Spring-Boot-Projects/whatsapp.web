@@ -76,18 +76,24 @@
     </div>
     <br/><br/>
     <div style="background-color: gray;width: 100%;margin-top:-7px;padding:10px;">
-        <ng-container *ngFor="let salesOrder of particiapantsSalesOrders">
-            <div class="sales-date">{{salesOrder.salesTimestamp | date:'dd.MM.yyyy HH:mm'}}</div>
-            <ng-container *ngFor="let pos of salesOrder.positions">
-                <mat-list-item style="cursor: pointer;height: 30px;background-color: gray;">
-                    <span matListItemTitle>
-                        &nbsp;
-                        <div class="mobile">{{pos.brand}}</div>
-                        &nbsp;
-                        <div class="mobile">{{pos.variantKey}}</div>
-                    </span>
-                </mat-list-item>
-            </ng-container>
+        <ng-container *ngFor="let salesOrder of particiapantsSalesOrders; index as i; let l = count">
+            <div>
+                <div class="sales-date">{{salesOrder.salesTimestamp | date:'dd.MM.yyyy HH:mm'}}</div>
+                <div>
+                    <ng-container *ngFor="let pos of salesOrder.positions; index as j">
+                        <mat-list-item style="cursor: pointer;height: 30px;background-color: gray;">
+                            <span matListItemTitle>
+                                &nbsp;
+                                <div class="mobile">{{pos.brand}}</div>
+                                &nbsp;
+                                <div class="mobile">{{pos.variantKey}}</div>
+                                <div *ngIf="j == 0" class="mobile" style="font-size: 25px;color: black;">{{l - i}}</div>
+                            </span>
+                        </mat-list-item>
+                    </ng-container>
+                </div>
+                <div style="border-bottom: 1px solid black;width: 50%;"></div>
+            </div>
         </ng-container>
     </div>
 </ng-container>

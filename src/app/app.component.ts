@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
   public isReportUser: boolean = false;
   public isWhatsappNewsletter: boolean = false;
   public isWhatsappSales: boolean = false;
+  public salesModuleActive: boolean = false;
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService,
@@ -82,6 +83,13 @@ export class AppComponent implements OnInit {
                 this.accountIdentifier = account.identifier;
                 this.accountId = account.id;
                 this.company = company;
+                //******check if module sales is activated */
+                if(account.account_properties) {
+                  account.account_properties.forEach(property => {
+                    if(property.property_name == 'sales.module.active') 
+                      this.salesModuleActive = (property.property_value == 'true');
+                  });
+                }
                 this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
                   next: (v) => {
                     this.templates = v;
@@ -133,9 +141,11 @@ export class AppComponent implements OnInit {
       component.instance.accountId = this.accountId;
       component.instance.templates = this.templates;
       component.instance.standards = this.standards;
+      component.instance.company = this.company;
       component.instance.isWhatsappNewsletter = this.isWhatsappNewsletter;
       component.instance.isWhatsappSales = this.isWhatsappSales;
       component.instance.mainContent = this.mainContent;
+      component.instance.salesModuleActive = this.salesModuleActive;
       if(!environment.production)
         console.log(component);
     } else if(menuId == 2) {

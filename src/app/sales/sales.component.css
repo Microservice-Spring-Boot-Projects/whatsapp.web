@@ -9,12 +9,13 @@
     color: black;
     font-weight: bold;
     font-size: medium;
+    padding-top: 10px;
 }
 
 .mobile {
     font-size: small;
     float:left;
-    width: 30%;
+    width: 15%;
 }
 
 .mat-icon {
