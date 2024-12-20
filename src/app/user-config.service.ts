@@ -30,6 +30,10 @@ export class UserConfigService {
     return this.http.get(environment.ACCOUNT_USER_URL + "/templates?identifier=" + accountIdentifier);
   }
 
+  getLovs(accountIdentifier: string, propertyName: string): Observable<any> {
+    return this.http.get(environment.ACCOUNT_USER_URL + "/lovs?identifier=" + accountIdentifier + "&propertyName=" + propertyName);
+  }
+
   getAccountData(accountIdentifier: string): Observable<any> {
     return this.http.get(environment.ACCOUNT_USER_URL + "/read?identifier=" + accountIdentifier + "&type=whatsapp");
   }

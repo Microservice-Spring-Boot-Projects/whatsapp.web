@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {AccountProperty, Message, Participant} from "../pojos";
+import {Component, ElementRef, Input, OnInit, SimpleChanges} from '@angular/core';
+import {AccountProperty, Company, Message, Participant} from "../pojos";
 import {WebsocketService} from "../websocket.service";
 import {MessageService} from "../message.service";
 import {environment} from "../../environments/environment";
@@ -23,7 +23,9 @@ export class MessengerComponent implements OnInit {
   @Input() accountId: number = 0;
   @Input() templates: AccountProperty[] = [];
   @Input() standards: AccountProperty[] = [];
-  //@Input() isWhatsappAdmin: boolean = false;
+  @Input() isWhatsappSales: boolean = false;
+  @Input() company: Company;
+  @Input() salesModuleActive: boolean = false;
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();

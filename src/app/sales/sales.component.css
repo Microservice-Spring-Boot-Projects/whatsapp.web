@@ -1,0 +1,43 @@
+.user-name {
+    color: white;
+    font-size: small;
+    float:left;
+    width: 50%;
+}
+
+.sales-date {
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+    padding-top: 10px;
+}
+
+.mobile {
+    font-size: small;
+    float:left;
+    width: 15%;
+}
+
+.mat-icon {
+    color: #25D366;
+    font-size: 20px;
+}
+
+.iconLine {
+    text-align: right;
+    float:left;
+    width: 15%;
+}
+
+.selected {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.mobile-number {
+    color: darkgrey;
+}
+
+.message-full-width{
+    padding: 5px;
+}

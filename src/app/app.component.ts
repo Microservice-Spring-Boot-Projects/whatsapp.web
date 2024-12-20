@@ -1,11 +1,4 @@
-import {
-  Component,
-  ComponentRef,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
+import {Component,  ComponentRef,  ElementRef,  OnInit,  ViewChild,  ViewContainerRef} from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
@@ -16,6 +9,7 @@ import {NewsConfigComponent} from "./admin/news-config/news-config.component";
 import {ReportComponent} from "./report/report.component";
 import {HostListener} from "@angular/core";
 import {BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
+import { SalesComponent } from './sales/sales.component';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +40,8 @@ export class AppComponent implements OnInit {
   public isWhatsappAdmin: boolean = false;
   public isReportUser: boolean = false;
   public isWhatsappNewsletter: boolean = false;
+  public isWhatsappSales: boolean = false;
+  public salesModuleActive: boolean = false;
 
   constructor(private readonly keycloak: KeycloakService,
               private userConfigService: UserConfigService,
@@ -72,6 +68,7 @@ export class AppComponent implements OnInit {
       this.isWhatsappAdmin = roles.includes('whatsapp-admin');
       this.isReportUser = roles.includes('whatsapp-report');
       this.isWhatsappNewsletter = roles.includes('whatsapp-newsletter');
+      this.isWhatsappSales = roles.includes('whatsapp-sales');
       this.initUser(this.userProfile.username as string)
     } else this.initiateSession();
   }
@@ -86,6 +83,13 @@ export class AppComponent implements OnInit {
                 this.accountIdentifier = account.identifier;
                 this.accountId = account.id;
                 this.company = company;
+                //******check if module sales is activated */
+                if(account.account_properties) {
+                  account.account_properties.forEach(property => {
+                    if(property.property_name == 'sales.module.active') 
+                      this.salesModuleActive = (property.property_value == 'true');
+                  });
+                }
                 this.userConfigService.getTemplates(this.accountIdentifier as string).subscribe({
                   next: (v) => {
                     this.templates = v;
@@ -137,7 +141,13 @@ export class AppComponent implements OnInit {
       component.instance.accountId = this.accountId;
       component.instance.templates = this.templates;
       component.instance.standards = this.standards;
-      console.log(component);
+      component.instance.company = this.company;
+      component.instance.isWhatsappNewsletter = this.isWhatsappNewsletter;
+      component.instance.isWhatsappSales = this.isWhatsappSales;
+      component.instance.mainContent = this.mainContent;
+      component.instance.salesModuleActive = this.salesModuleActive;
+      if(!environment.production)
+        console.log(component);
     } else if(menuId == 2) {
       component = this._ViewContainerRef.createComponent(NewsConfigComponent);
       component.instance.accountIdentifier = this.accountIdentifier;
@@ -146,6 +156,11 @@ export class AppComponent implements OnInit {
       component.instance.company = this.company;
     } else if(menuId == 4) {
       component = this._ViewContainerRef.createComponent(BroadcastComponent);
+      component.instance.accountIdentifier = this.accountIdentifier;
+    } else if(menuId == 5) {
+      component = this._ViewContainerRef.createComponent(SalesComponent);
+      component.instance.company = this.company;
+      component.instance.accountId = this.accountId;
       component.instance.accountIdentifier = this.accountIdentifier;
     }
     // @ts-ignore

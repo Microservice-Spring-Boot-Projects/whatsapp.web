@@ -1,6 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Timestamp } from "rxjs";
+
 export interface Serializable {
 }
 
@@ -40,10 +42,13 @@ export class Participant extends AuditEntity{
   companyName?: string;
   participantName?: string;
   participantMobile?: string;
+  lastName?:string;
+  firstName?:string;
   messages = new Map<number, Message>();
   newMessageCount?: number = 0;
   lastMessage?: number;
   registrationMap?: any;
+  participantDateofbirth?: Date;
 }
 
 export class Company{
@@ -69,6 +74,21 @@ export class AccountProperty {
 export class User {
   username?: string;
   company?: Company[];
+}
+
+export class SalesOrder {
+  id?: number;
+  companyId?: number;
+  accountId?: number;
+  participant?: Participant;
+  salesTimestamp?: Date;
+  positions?: SalesOrderPosition[];
+}
+
+export class SalesOrderPosition {
+  id?: number;
+  brand?: string;
+  variantKey?: string;
 }
 
 export class Template {

@@ -17,9 +17,19 @@
          <mat-label>Header-Bild-URL</mat-label>
          <input matInput [(ngModel)]="templateRequest.headerImageUrl"/>
        </mat-form-field>
+       <mat-icon style="color: white;" title="Bild als URL oder via Bild-Upload">perm_device_information</mat-icon>
+       <br/>
+       <div>
+          <button type="button" mat-raised-button (click)="fileInput.click()">Datei auswählen:</button>
+          <input hidden (change)="onFileSelected()" #fileInput type="file" id="file" accept=".jpeg,.jpg,.png"> 
+          <mat-icon style="color: white;vertical-align: middle;" title="Bild als URL oder via Bild-Upload">perm_device_information</mat-icon>
+          <span style="margin-left: 5px;">{{filename}}</span>
+       </div>
       </div>
+      <br/>
       <div *ngIf="component.type == 'BODY'">
-        <div *ngIf="component.text" class="component-text" [innerHTML]="replaceLineBreaks(String(component.text))"></div><br/><br/>
+        <div *ngIf="component.text" class="component-text" [innerHTML]="replaceLineBreaks(String(component.text))"></div>
+        <br/><br/>
         <ng-container *ngFor="let index of [1,2,3,4,5,6,7]">
           <ng-container *ngIf="isVariable(String(component.text), index)">
             <mat-form-field class="mat-form-field">
@@ -32,6 +42,7 @@
               <input *ngIf="index == 6" #text6 matInput [(ngModel)]="templateRequest.text6" style="width: 250px;"/>
               <input *ngIf="index == 7" #text7 matInput [(ngModel)]="templateRequest.text7" style="width: 250px;"/>
             </mat-form-field>
+            <mat-icon style="color: white;" title="Folgende Variablen können eingesetzt werden. {name} | {mobile} | {dateofbirth}">perm_device_information</mat-icon>
             <br/>
           </ng-container>
         </ng-container>
@@ -42,7 +53,6 @@
     </button>
   </div>
   <div class="inner-div">
-
     <img height="200px" src="{{templateRequest.headerImageUrl}}"/>
   </div>
 </div>

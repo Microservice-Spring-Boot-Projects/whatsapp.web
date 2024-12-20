@@ -30,6 +30,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
+import { SalesComponent } from './sales/sales.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -56,7 +57,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         ProcessValuesComponent,
         ReportComponent,
         OptinUserComponent,
-        BroadcastComponent
+        BroadcastComponent,
+        SalesComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
