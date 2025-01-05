@@ -16,8 +16,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
-import { environment } from "../environments/environment";
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -31,8 +29,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 import { SalesComponent } from './sales/sales.component';
+import { KeycloakService } from './keycloak.service';
 
-function initializeKeycloak(keycloak: KeycloakService) {
+/*function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
@@ -46,6 +45,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
           window.location.origin + '/assets/verify-sso.html'
       }
     });
+}*/
+
+export function kcFactory(kcService: KeycloakService){
+  return () => kcService.init();
 }
 
 @NgModule({ declarations: [
@@ -72,7 +75,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
         MatInputModule,
         MatIconModule,
         ScrollingModule,
-        KeycloakAngularModule,
         MatSelectModule,
         MatSnackBarModule,
         MatTabsModule,
@@ -82,7 +84,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         providers: [
             {
               provide: APP_INITIALIZER,
-              useFactory: initializeKeycloak,
+              useFactory: kcFactory,
               multi: true,
               deps: [KeycloakService]
             }

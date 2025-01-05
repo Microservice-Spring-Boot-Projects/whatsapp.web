@@ -7,5 +7,6 @@ export const environment = {
   USER_URL: "https://config.honselfood.de/user/user",
   ACCOUNT_USER_URL: "https://config.honselfood.de/user/account",
   WEBSOCKET_ENDPOINT:  "https://whatsapp.honselfood.de/whatsapp/websocket",
-  KEYCLOAK_REALM : "missfortyRealm"
+  KEYCLOAK_REALM : "missfortyRealm",
+  KEYCLOAK_URL: "https://keycloakoci.missforty.de"
 };

@@ -11,7 +11,8 @@ export const environment = {
   USER_URL: "https://localhost:8447/user/user",
   ACCOUNT_USER_URL: "https://localhost:8447/user/account",
   WEBSOCKET_ENDPOINT:  "https://localhost:8445/whatsapp/websocket",
-  KEYCLOAK_REALM : "missfortyTestRealm"
+  KEYCLOAK_REALM: "missfortyTestRealm",
+  KEYCLOAK_URL: "https://keycloakoci.missforty.de"
 };
 
 /*

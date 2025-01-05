@@ -1,6 +1,4 @@
 import {Component,  ComponentRef,  ElementRef,  OnInit,  ViewChild,  ViewContainerRef} from '@angular/core';
-import {KeycloakService} from 'keycloak-angular';
-import {KeycloakProfile} from 'keycloak-js';
 import {UserConfigService} from "./user-config.service";
 import {AccountProperty, Company, User} from "./pojos";
 import {environment} from "../environments/environment";
@@ -10,6 +8,7 @@ import {ReportComponent} from "./report/report.component";
 import {HostListener} from "@angular/core";
 import {BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 import { SalesComponent } from './sales/sales.component';
+import { KeycloakService } from './keycloak.service';
 
 @Component({
   selector: 'app-root',
@@ -26,8 +25,7 @@ export class AppComponent implements OnInit {
   // @ts-ignore
   name: string;
   public isLoggedIn = false;
-  public userProfile: KeycloakProfile | null = null;
-
+  
   accountIdentifier?: string;
   accountId?: number;
   company: Company;
@@ -57,20 +55,21 @@ export class AppComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.isLoggedIn = await this.keycloak.isLoggedIn();
-    if (this.isLoggedIn) {
-      this.userProfile = await this.keycloak.loadUserProfile();
-      const roles = this.keycloak.getUserRoles();
-      if (!environment.production) {
-        console.log(this.userProfile);
-        console.log(roles);
-      }
-      this.isWhatsappAdmin = roles.includes('whatsapp-admin');
-      this.isReportUser = roles.includes('whatsapp-report');
-      this.isWhatsappNewsletter = roles.includes('whatsapp-newsletter');
-      this.isWhatsappSales = roles.includes('whatsapp-sales');
-      this.initUser(this.userProfile.username as string)
-    } else this.initiateSession();
+      if (this.keycloak.authenticated) {
+        this.isLoggedIn = this.keycloak.authenticated;
+        this.isWhatsappAdmin = this.keycloak.keycloak.hasRealmRole('whatsapp-admin');
+        this.isReportUser = this.keycloak.keycloak.hasRealmRole('whatsapp-report');
+        this.isWhatsappNewsletter = this.keycloak.keycloak.hasRealmRole('whatsapp-newsletter');
+        this.isWhatsappSales = this.keycloak.keycloak.hasRealmRole('whatsapp-sales');
+        if(!environment.production){
+          console.log(this.keycloak.userProfile);
+          console.log(this.isWhatsappAdmin);
+          console.log(this.isReportUser);
+          console.log(this.isWhatsappNewsletter);
+          console.log(this.isWhatsappSales);
+        }
+    }
+    this.initUser(this.keycloak.userProfile?.username as string);
   }
 
   initUser(username: string): any {
