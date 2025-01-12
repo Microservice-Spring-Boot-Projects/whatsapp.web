@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
           console.log(this.isWhatsappSales);
         }
     }
-    this.initUser(this.keycloak.userProfile?.username as string);
+    this.initUser(this.keycloak.userProfile?.preferred_username as string);
   }
 
   initUser(username: string): any {

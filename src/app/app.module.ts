@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MessengerComponent } from './messenger/messenger.component';
 import { MatListModule } from '@angular/material/list';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CommunicationComponent } from './messenger/communication/communication.component';
 import { UserListComponent } from './messenger/user-list/user-list.component';
 import { FormsModule } from '@angular/forms';
@@ -30,22 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 import { SalesComponent } from './sales/sales.component';
 import { KeycloakService } from './keycloak.service';
-
-/*function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'https://keycloak.missforty.de',
-        realm: environment.KEYCLOAK_REALM,
-        clientId: 'whatsapp-ml'
-      },
-      initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/verify-sso.html'
-      }
-    });
-}*/
+import { HttpApiInterceptor } from './HttpApiInterceptor';
 
 export function kcFactory(kcService: KeycloakService){
   return () => kcService.init();
@@ -87,6 +72,11 @@ export function kcFactory(kcService: KeycloakService){
               useFactory: kcFactory,
               multi: true,
               deps: [KeycloakService]
+            },
+            {
+              provide: HTTP_INTERCEPTORS,
+              useClass: HttpApiInterceptor,
+              multi: true
             }
             ,provideHttpClient(withInterceptorsFromDi())
         ] 

@@ -120,7 +120,7 @@ export class TemplateRequest{
 }
 
 export interface UserProfile {
-  username?: string;
+  preferred_username?: string;
   email?: string;
   firstName?: string;
   lastName?: string;
