@@ -48,7 +48,8 @@ export function kcFactory(kcService: KeycloakService){
         BroadcastComponent,
         SalesComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         MatToolbarModule,
