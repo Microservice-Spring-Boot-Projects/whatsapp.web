@@ -28,7 +28,7 @@
   <div *ngIf="currentParticipant" class="textField">
     <mat-divider></mat-divider>
     <div style="width: 100%;">
-      <div style="float: left;width: 60%;margin-top: 5px;vertical-align: center;">
+      <div style="float: left;width: 50%;margin-top: 5px;vertical-align: center;">
         <mat-form-field class="message-full-width" appearance="outline">
           <textarea type="text"
                     matInput
@@ -43,7 +43,7 @@
           </textarea>
         </mat-form-field>
       </div>
-      <div style="float: left;width: 34%;margin-top: 5px;vertical-align: center;">
+      <div style="float: left;width: 35%;margin-top: 5px;vertical-align: center;">
         <mat-form-field appearance="outline" class="message-full-width">
           <mat-label>Standardnachricht auswählen</mat-label>
           <mat-select [(ngModel)]="standardText" (selectionChange)="onStandardSelect()">
@@ -52,7 +52,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div style="width:5%; float:left;height: 100%;margin: 20px 5px; text-align: center;">
+      <div style="width:8%; float:left;height: 100%;margin: 20px 5px; text-align: right;">
         <mat-icon class="postButton white-icon" (click)="postMessage()">send</mat-icon>
       </div>
     </div>
