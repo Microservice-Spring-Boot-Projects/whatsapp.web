@@ -48,7 +48,7 @@
         </ng-container>
       </div>
     </ng-container>
-    <button mat-raised-button color="primary"(click)="sendTemplate()" style="cursor: pointer;">
+    <button mat-raised-button color="primary"(click)="sendTemplate()" style="cursor: pointer;" [disabled]="activeSender">
       Template senden
     </button>
   </div>

@@ -26,7 +26,8 @@ export class BroadcastComponent implements AfterViewInit{
   templateRequest: TemplateRequest;
   uploadfile: any;
   filename: string = '';
-
+  activeSender: boolean = false;
+  
 
   ngAfterViewInit(): void {
     this.readTemplates(this.accountIdentifier);
@@ -59,6 +60,7 @@ export class BroadcastComponent implements AfterViewInit{
   }
 
   sendTemplate(): void {
+    this.activeSender = true;
     if(!environment.production)
       console.log(this.templateRequest);
     this.templateRequest.templateName = this.currentTemplate.name;
@@ -73,6 +75,9 @@ export class BroadcastComponent implements AfterViewInit{
         },
         error: (v) => {
           this.globalService.openError(v.error,"Schließen");
+        },
+        complete: () => {
+          this.activeSender = false;
         }
       });
     }
@@ -86,6 +91,9 @@ export class BroadcastComponent implements AfterViewInit{
       },
       error: (v) => {
         this.globalService.openError(v.error,"Schließen");
+      },
+      complete: () => {
+        this.activeSender = false;
       }
     });
   }
