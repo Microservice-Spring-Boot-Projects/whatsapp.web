@@ -49,6 +49,7 @@ export class Participant extends AuditEntity{
   lastMessage?: number;
   registrationMap?: any;
   participantDateofbirth?: Date;
+  nodobWanted?:boolean;
 }
 
 export class Company{

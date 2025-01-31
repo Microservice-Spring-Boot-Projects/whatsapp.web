@@ -14,6 +14,7 @@ import { UserListComponent } from './messenger/user-list/user-list.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -75,6 +76,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         KeycloakAngularModule,
         MatSelectModule,
         MatSnackBarModule,
+        MatCheckboxModule,
         MatTabsModule,
         MatExpansionModule,
         MatTableModule,
