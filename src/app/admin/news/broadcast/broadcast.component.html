@@ -34,13 +34,13 @@
           <ng-container *ngIf="isVariable(String(component.text), index)">
             <mat-form-field class="mat-form-field">
               <mat-label>Variable: {{index}} </mat-label>
-              <input *ngIf="index == 1" id="text1" matInput [(ngModel)]="templateRequest.text1" (keyup)="onkeyup($event);" style="width: 250px;"/>
-              <input *ngIf="index == 2" #text2 matInput [(ngModel)]="templateRequest.text2" (keyup)="onkeyup($event);" style="width: 250px;"/>
-              <input *ngIf="index == 3" #text3 matInput [(ngModel)]="templateRequest.text3" style="width: 250px;"/>
-              <input *ngIf="index == 4" #text4 matInput [(ngModel)]="templateRequest.text4" style="width: 250px;"/>
-              <input *ngIf="index == 5" #text5 matInput [(ngModel)]="templateRequest.text5" style="width: 250px;"/>
-              <input *ngIf="index == 6" #text6 matInput [(ngModel)]="templateRequest.text6" style="width: 250px;"/>
-              <input *ngIf="index == 7" #text7 matInput [(ngModel)]="templateRequest.text7" style="width: 250px;"/>
+              <input *ngIf="index == 1" #text1 matInput [(ngModel)]="templateRequest.text1" style="width: 480px;"/>
+              <input *ngIf="index == 2" #text2 matInput [(ngModel)]="templateRequest.text2" style="width: 480px;"/>
+              <input *ngIf="index == 3" #text3 matInput [(ngModel)]="templateRequest.text3" style="width: 480px;"/>
+              <input *ngIf="index == 4" #text4 matInput [(ngModel)]="templateRequest.text4" style="width: 480px;"/>
+              <input *ngIf="index == 5" #text5 matInput [(ngModel)]="templateRequest.text5" style="width: 480px;"/>
+              <input *ngIf="index == 6" #text6 matInput [(ngModel)]="templateRequest.text6" style="width: 480px;"/>
+              <input *ngIf="index == 7" #text7 matInput [(ngModel)]="templateRequest.text7" style="width: 480px;"/>
             </mat-form-field>
             <mat-icon style="color: white;" title="Folgende Variablen können eingesetzt werden. {name} | {mobile} | {dateofbirth}">perm_device_information</mat-icon>
             <br/>
