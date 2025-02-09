@@ -10,7 +10,7 @@ import { SalesService } from 'src/app/sales.service';
 export class SalesOverviewComponent implements OnInit{
 
   @Input() currentParticipant?: Participant;
-
+  
   particiapantsSalesOrders: SalesOrder[];
 
   constructor(private salesService: SalesService){
