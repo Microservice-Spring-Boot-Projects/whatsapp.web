@@ -1,5 +1,5 @@
-<mat-grid-list cols="4" rowHeight="fit">
-  <mat-grid-tile colspan="1" rowspan="15" style="vertical-align: top;">
+<mat-grid-list cols="20" rowHeight="fit">
+  <mat-grid-tile colspan="4" rowspan="15" style="vertical-align: top;">
     <user-list [currentParticipant]="currentParticipant"
                [map]="map"
                (participantSelected)="handleParticipantChange($event)"
@@ -13,6 +13,10 @@
     </user-list>
   </mat-grid-tile>
   <mat-grid-tile colspan="3" rowspan="15" style="vertical-align: top;">
+    <sales-overview [currentParticipant]="currentParticipant">
+    </sales-overview>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="13" rowspan="15" style="vertical-align: top;">
     <communication [accountIdentifier]="accountIdentifier"
                    [accountId]="accountId"
                    [currentParticipant]="currentParticipant"
