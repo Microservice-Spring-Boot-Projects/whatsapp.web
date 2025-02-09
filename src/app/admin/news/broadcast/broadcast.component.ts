@@ -70,14 +70,12 @@ export class BroadcastComponent implements AfterViewInit{
     } else {
       this.messageService.postTemplate(this.templateRequest).subscribe({
         next: (v) => {
+          this.activeSender = false;
           this.globalService.openStatus("Templage wurde verschickt.","Schliessen");
-          console.log(v);
         },
         error: (v) => {
-          this.globalService.openError(v.error,"Schließen");
-        },
-        complete: () => {
           this.activeSender = false;
+          this.globalService.openError(v.error,"Schließen");
         }
       });
     }
@@ -86,14 +84,12 @@ export class BroadcastComponent implements AfterViewInit{
   sendTemplateAndUpload(): void {
     this.uploadService.upload(this.uploadfile,this.templateRequest).subscribe({
       next:(v) => {
-        console.log(v);
+        this.activeSender = false;
         this.globalService.openStatus("Templage wurde verschickt.","Schliessen");
       },
       error: (v) => {
-        this.globalService.openError(v.error,"Schließen");
-      },
-      complete: () => {
         this.activeSender = false;
+        this.globalService.openError(v.error,"Schließen");
       }
     });
   }
