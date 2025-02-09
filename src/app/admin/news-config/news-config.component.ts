@@ -16,8 +16,7 @@ export class NewsConfigComponent implements OnInit {
   accountProperties: AccountProperty[] = [];
 
   ngOnInit(): void {
-    this.userService.getAccountData(this.accountIdentifier).subscribe(
-      {
+    this.userService.getAccountData(this.accountIdentifier).subscribe({
         next: (v) => {
           this.accountProperties = (v as Account).account_properties as AccountProperty[];
         }

@@ -15,8 +15,6 @@ export class UserListComponent implements OnInit {
   constructor(private _ViewContainerRef: ViewContainerRef) {
   }
 
-  //@ViewChild('mainContent') mainContent: ElementRef;
-
   private eventsSubscription: Subscription;
 
   @Input() currentParticipant?: Participant;

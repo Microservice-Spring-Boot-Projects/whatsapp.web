@@ -27,6 +27,10 @@ export class MessengerComponent implements OnInit {
   @Input() company: Company;
   @Input() salesModuleActive: boolean = false;
 
+  colspanUserList: number = 4;
+  colspanSalesList: number = 3;
+  colspanCommunication: number = 13;
+
   currentParticipant?: Participant;
   map = new Map<number, Participant>();
 
@@ -49,6 +53,11 @@ export class MessengerComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if(!this.salesModuleActive) {
+      this.colspanUserList = 4;
+      this.colspanSalesList = 0;
+      this.colspanCommunication = 16;
+    }
     if (!environment.production)
       console.log("async ngOnInit()");
     this.websocketService.setAccountId(this.accountId);

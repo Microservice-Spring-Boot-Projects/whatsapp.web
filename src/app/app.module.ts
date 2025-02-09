@@ -30,8 +30,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { BroadcastComponent} from "./admin/news/broadcast/broadcast.component";
 import { SalesComponent } from './sales/sales.component';
+<<<<<<< HEAD
 import { KeycloakService } from './keycloak.service';
 import { HttpApiInterceptor } from './HttpApiInterceptor';
+=======
+import { SalesOverviewComponent } from './messenger/sales-overview/sales-overview.component';
+>>>>>>> develop
 
 export function kcFactory(kcService: KeycloakService){
   return () => kcService.init();
@@ -47,7 +51,8 @@ export function kcFactory(kcService: KeycloakService){
         ReportComponent,
         OptinUserComponent,
         BroadcastComponent,
-        SalesComponent
+        SalesComponent,
+        SalesOverviewComponent
     ],
     bootstrap: [AppComponent], 
     imports: [BrowserModule,
