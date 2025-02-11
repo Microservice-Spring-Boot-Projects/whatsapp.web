@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { Timestamp } from "rxjs";
+import { Filter } from "./admin/news/broadcast/filter";
 
 export interface Serializable {
 }
@@ -119,6 +120,7 @@ export class TemplateRequest{
   headerImageUrl?: string = "";
   templateName?: string = "";
   accountIdentifier?: string = "";
+  filter: Filter;
 }
 
 export interface UserProfile {
