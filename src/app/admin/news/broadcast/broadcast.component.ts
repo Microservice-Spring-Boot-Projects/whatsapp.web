@@ -5,6 +5,7 @@ import {environment} from "../../../../environments/environment";
 import {Template, TemplateRequest} from "../../../pojos"
 import {MessageService} from "../../../message.service";
 import { UploadService } from 'src/app/upload.service';
+import { Filter } from './filter';
 
 @Component({
   selector: 'app-broadcast',
@@ -27,11 +28,11 @@ export class BroadcastComponent implements AfterViewInit{
   uploadfile: any;
   filename: string = '';
   activeSender: boolean = false;
-  
 
   ngAfterViewInit(): void {
     this.readTemplates(this.accountIdentifier);
     this.templateRequest = new TemplateRequest();
+    this.templateRequest.filter = new Filter();
     this.templateRequest.accountIdentifier = this.accountIdentifier;
   }
 

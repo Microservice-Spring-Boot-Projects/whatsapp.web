@@ -48,6 +48,9 @@
         </ng-container>
       </div>
     </ng-container>
+    <mat-checkbox [(ngModel)]="templateRequest.filter.male">Männer</mat-checkbox>
+    <mat-checkbox [(ngModel)]="templateRequest.filter.female">Frauen</mat-checkbox>
+    <br/>
     <button mat-raised-button color="primary"(click)="sendTemplate()" style="cursor: pointer;" [disabled]="activeSender">
       Template senden
     </button>
