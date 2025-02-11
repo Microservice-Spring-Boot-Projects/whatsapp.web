@@ -2,17 +2,10 @@
     <mat-toolbar style="margin-top:-7px;height: 50px;">
         <label style="font-size: medium;top:0;">Verkäufe</label>&nbsp;
     </mat-toolbar>
-    <ng-container *ngFor="let salesOrder of particiapantsSalesOrders">
+    <ng-container *ngFor="let salesOrder of currentParticipant?.salesorder">
         <ng-container *ngFor="let salesOrderPos of salesOrder.positions">
-            <mat-list-item style="cursor: pointer;height: 30px;">
-            <span matListItemTitle>
-                <div class="user-name" [class.selected]="">{{salesOrder.salesTimestamp | date:'dd.MM.yyyy HH:mm'}}</div>
-                &nbsp;
-                <div class="user-name" [class.selected]="">{{salesOrderPos.brand}}</div>
-                &nbsp;
-                <div class="mobile" [class.selected]="">{{salesOrderPos.variantKey}}</div>
-            </span>
-            </mat-list-item>
+            <span style="padding-left: 3px;color: white;">&nbsp;{{salesOrder.salesTimestamp | date:'dd.MM.yyyy'}}&nbsp;&nbsp;{{salesOrderPos.brand}}&nbsp;&nbsp;&nbsp;{{salesOrderPos.variantKey}}</span>
+            <br/>
         </ng-container>
     </ng-container>
 </mat-nav-list>

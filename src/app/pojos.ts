@@ -50,6 +50,7 @@ export class Participant extends AuditEntity{
   registrationMap?: any;
   participantDateofbirth?: Date;
   nodobWanted?:boolean;
+  salesorder? : SalesOrder[];
 }
 
 export class Company{
