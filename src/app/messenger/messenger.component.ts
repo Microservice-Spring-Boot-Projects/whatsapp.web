@@ -1,10 +1,11 @@
-import {Component, ElementRef, Input, OnInit, SimpleChanges} from '@angular/core';
-import {AccountProperty, Company, Message, Participant} from "../pojos";
-import {WebsocketService} from "../websocket.service";
-import {MessageService} from "../message.service";
-import {environment} from "../../environments/environment";
-import {GlobalService} from "../global.service";
-import {Subject} from "rxjs";
+import { Component, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
+import { AccountProperty, Company, Message, Participant } from "../pojos";
+import { WebsocketService } from "../websocket.service";
+import { MessageService } from "../message.service";
+import { environment } from "../../environments/environment";
+import { GlobalService } from "../global.service";
+import { Subject } from "rxjs";
+import { SalesService } from '../sales.service';
 
 @Component({
   selector: 'messenger',
@@ -16,6 +17,7 @@ export class MessengerComponent implements OnInit {
   constructor(private websocketService: WebsocketService
     , private messageService: MessageService
     , private globalService: GlobalService
+    , private salesService: SalesService
   ) {
   }
 
@@ -28,8 +30,8 @@ export class MessengerComponent implements OnInit {
   @Input() salesModuleActive: boolean = false;
 
   colspanUserList: number = 4;
-  colspanSalesList: number = 3;
-  colspanCommunication: number = 13;
+  colspanSalesList: number = 0;
+  colspanCommunication: number = 16;
 
   currentParticipant?: Participant;
   map = new Map<number, Participant>();
@@ -53,7 +55,7 @@ export class MessengerComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if(!this.salesModuleActive) {
+    if (!this.salesModuleActive) {
       this.colspanUserList = 4;
       this.colspanSalesList = 0;
       this.colspanCommunication = 16;
@@ -131,7 +133,7 @@ export class MessengerComponent implements OnInit {
     if (!environment.production)
       console.log("handleParticipantChange(value: Participant)");
     let participant = this.map.get(value.id as number) as Participant;
-    if (!participant.messages || participant.messages.size == 0)
+    if (!participant.messages || participant.messages.size == 0) {
       this.messageService.findMessages(this.accountIdentifier, value.id as number).subscribe(
         {
           next: (v) => {
@@ -151,9 +153,33 @@ export class MessengerComponent implements OnInit {
           }
         }
       );
+      //**** we need to load the sales order when module is active *******/
+      if (this.salesModuleActive) {
+        this.salesService.listSalesOrders(participant.id as number).subscribe({
+          next: (v) => {
+            participant.salesorder = v;
+            this.setColspan(participant);
+            this.emitMsgEventToChild();
+          }
+        });
+      }
+    }
     else {
       this.currentParticipant = this.map.get(value.id as number) as Participant;
       this.currentParticipant.newMessageCount = 0;
+      this.setColspan(this.currentParticipant);
+    }
+  }
+
+  setColspan(participant: Participant) {
+    if (participant.salesorder?.length == 0) {
+      this.colspanUserList = 4;
+      this.colspanSalesList = 0;
+      this.colspanCommunication = 16;
+    } else {
+      this.colspanUserList = 4;
+      this.colspanSalesList = 3;
+      this.colspanCommunication = 13;
     }
   }
 

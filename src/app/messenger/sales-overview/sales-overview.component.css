@@ -36,10 +36,3 @@
   .mobile-number {
     color: darkgrey;
   }
-  
-  mat-nav-list {
-    flex-grow: 1;
-    height: calc(99vh - 50px);
-    overflow: auto;
-  }
-  
