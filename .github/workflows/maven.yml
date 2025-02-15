@@ -20,5 +20,6 @@ jobs:
       with:
         node-version: '20.x'
     - name: Install dependencies
-      run: npm install --legacy-peer-deps
-           ng build --configuration production
+      run: |
+       npm install --legacy-peer-deps
+       ng build --configuration production
