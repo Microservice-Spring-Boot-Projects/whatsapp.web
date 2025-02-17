@@ -1,0 +1,47 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: WHATSAPP_WEB-CI/CD
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4     
+      with:
+        node-version: '20.x'
+    - name: Run-Jobs    
+      run: npm install --legacy-peer-deps
+    - run: npm run build
+    - name: SFTP COPY
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+      with:
+        username: ${{secrets.SPRING_BOOT_USERNAME}}
+        server: ${{secrets.SPRING_BOOT_HOST}} 
+        port: 22 # default is 22
+        ssh_private_key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM}}
+        # will put all file under this path
+        local_path: dist/whatsapp.web/* # default is ./*
+        # files will copy to under remote_path
+        remote_path: spring-prod/whatsappweb
+        # sftp args
+        args: '-o ConnectTimeout=5'
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        #TODO Hostname as parameter
+        host: ${{secrets.SPRING_BOOT_HOST}} 
+        username: ${{secrets.SPRING_BOOT_USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM }}
+        port: 22
+        script: sudo rm -r /var/www/html/web-test/* ; sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/web-test/
+        
