@@ -22,3 +22,16 @@ jobs:
     - name: Run-Jobs    
       run: npm install --legacy-peer-deps
     - run: npm run build
+    - name: SFTP COPY
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.1
+      with:
+        username: ${{secrets.SPRING_BOOT_USERNAME}}
+        server: ${{secrets.SPRING_BOOT_HOST}} 
+        port: 22 # default is 22
+        ssh_private_key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM}}
+        # will put all file under this path
+        local_path: dist/whatsapp.web/* # default is ./*
+        # files will copy to under remote_path
+        remote_path: spring-prod/whatsappweb
+        # sftp args
+        args: '-o ConnectTimeout=5'
