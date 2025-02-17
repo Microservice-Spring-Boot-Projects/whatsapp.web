@@ -35,3 +35,12 @@ jobs:
         remote_path: spring-prod/whatsappweb
         # sftp args
         args: '-o ConnectTimeout=5'
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        #TODO Hostname as parameter
+        host: ${{secrets.SPRING_BOOT_HOST}} 
+        username: ${{secrets.SPRING_BOOT_USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM }}
+        port: 22
+        script: sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/web-test/
