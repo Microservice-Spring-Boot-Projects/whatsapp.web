@@ -43,4 +43,6 @@ jobs:
         username: ${{secrets.SPRING_BOOT_USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM }}
         port: 22
-        script: sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/web-test/
+        script: |
+         sudo rm -r /var/www/html/web-test/*
+         sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/web-test/
