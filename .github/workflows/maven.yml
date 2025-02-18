@@ -19,6 +19,15 @@ jobs:
       uses: actions/setup-node@v4     
       with:
         node-version: '20.x'
+    - name: Backup file on server
+      uses: appleboy/ssh-action@v1.2.0
+      with:
+        #TODO Hostname as parameter
+        host: ${{secrets.SPRING_BOOT_HOST}} 
+        username: ${{secrets.SPRING_BOOT_USERNAME}}
+        key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM }}
+        port: 22
+        script: sudo cp -R /var/www/html/whatsapp-web /home/ubuntu/backup/
     - name: Run-Jobs    
       run: npm install --legacy-peer-deps
     - run: npm run build
@@ -43,5 +52,5 @@ jobs:
         username: ${{secrets.SPRING_BOOT_USERNAME}}
         key: ${{secrets.SSH_PRIVATE_KEY_SPRING_VM }}
         port: 22
-        script: sudo rm -r /var/www/html/web-test/* ; sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/web-test/
+        script: sudo rm -r /var/www/html/whatsapp-web/* ; sudo mv /home/ubuntu/spring-prod/whatsappweb/* /var/www/html/whatsapp-web/
         
